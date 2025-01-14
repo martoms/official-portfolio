@@ -9,5 +9,15 @@ export default defineNuxtConfig({
       autoprefixer: {}
     }
   },
-  modules: ['@pinia/nuxt', '@vueuse/nuxt']
+  nitro: {
+    plugins: ['@/server/plugins/mongodb.ts']
+  },
+  runtimeConfig: {
+    mongodbUri: process.env.MONGODB_URI
+  },
+  mongoose: {
+    modelsDir: 'models',
+    devtools: true
+  },
+  modules: ['@pinia/nuxt', '@vueuse/nuxt', 'nuxt-mongoose']
 })
