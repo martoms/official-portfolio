@@ -1,7 +1,6 @@
 <template>
-  <!-- wrapper -->
   <div class="h-screen w-screen overflow-hidden">
-    <header>
+    <header class="fixed">
       <slot name="header" />
     </header>
     <nav>
