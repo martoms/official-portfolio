@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from 'tailwindcss/plugin'
 import { components } from './assets/styles/components'
+import { mycolors } from './assets/styles/colors'
 
 export default {
   content: [
@@ -11,7 +12,9 @@ export default {
     './nuxt.config.{js,ts}'
   ],
   theme: {
-    extend: {}
+    extend: {
+      colors: mycolors
+    }
   },
   plugins: [
     plugin(function ({ addComponents }) {

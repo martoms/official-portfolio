@@ -1,7 +1,7 @@
-import colors from 'tailwindcss/colors'
+import { mycolors } from './colors'
 
 export const components = {
   '.landing': {
-    backgroundImage: `linear-gradient(to bottom, ${colors.sky[200]} 0%, ${colors.white} 100%)`
+    backgroundImage: `linear-gradient(to bottom, ${mycolors.blue1.DEFAULT} 0%, ${mycolors.white.DEFAULT} 100%)`
   }
 }
