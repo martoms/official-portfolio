@@ -1,19 +1,19 @@
-import colors, { white } from 'tailwindcss/colors'
+import color from 'tailwindcss/colors'
 
-export const mycolors = {
+export const colors = {
   primary: {
-    DEFAULT: colors.sky[500],
-    hover: colors.sky[400]
+    DEFAULT: color.sky[500],
+    hover: color.sky[400]
   },
   secondary: {
-    DEFAULT: colors.slate[600],
-    hover: colors.slate[500]
+    DEFAULT: color.slate[600],
+    hover: color.slate[500]
   },
   blue1: {
-    DEFAULT: colors.sky[200],
-    hover: colors.sky[100]
+    DEFAULT: color.sky[200],
+    hover: color.sky[100]
   },
   white: {
-    DEFAULT: colors.white
+    DEFAULT: color.white
   }
 }

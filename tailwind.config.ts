@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from 'tailwindcss/plugin'
 import { components } from './assets/styles/components'
-import { mycolors } from './assets/styles/colors'
+import { colors } from './assets/styles/colors'
+import { textColor } from './assets/styles/textColor'
+import { fontSize } from './assets/styles/fontSize'
+import { keyframes } from './assets/styles/keyframes'
+import { animation } from './assets/styles/animation'
+
+import { utilities } from './assets/styles/utilities'
 
 export default {
   content: [
@@ -13,12 +19,21 @@ export default {
   ],
   theme: {
     extend: {
-      colors: mycolors
+      colors,
+      textColor,
+      fontSize,
+      keyframes,
+      animation,
+      fontFamily: {
+        Poppins: ['Poppins', 'sans-serif'],
+        Montserrat: ['Montserrat', 'sans-serif']
+      }
     }
   },
   plugins: [
-    plugin(function ({ addComponents }) {
+    plugin(function ({ addComponents, addUtilities }) {
       addComponents(components)
+      addUtilities(utilities)
     })
   ]
 }

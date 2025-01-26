@@ -1,6 +1,6 @@
 <template>
-  <div class="h-screen w-screen overflow-hidden">
-    <header role="banner" aria-labelledby="site-name" class="fixed">
+  <div class="h-screen w-screen overflow-hidden font-Poppins">
+    <header role="banner" aria-labelledby="site-name" class="fixed w-full top-[55%]">
       <slot name="header" />
     </header>
     <nav role="navigation">
