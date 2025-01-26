@@ -1,12 +1,12 @@
 <template>
   <div class="h-screen w-screen overflow-hidden">
-    <header class="fixed">
+    <header role="banner" aria-labelledby="site-name" class="fixed">
       <slot name="header" />
     </header>
-    <nav>
+    <nav role="navigation">
       <slot name="nav" />
     </nav>
-    <main class="h-full w-full">
+    <main role="main" class="h-full w-full">
       <slot />
     </main>
   </div>
