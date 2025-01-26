@@ -37,8 +37,8 @@
       </div>
     </div>
     <template #nav>
-      <div class="h-[inherit]">
-        <div></div>
+      <div class="relative top-[-50px] h-[inherit]">
+        <div class="absolute top-1/2 translate-y-[-50%] h-[80px] w-full gradient-x-center"></div>
       </div>
     </template>
   </NuxtLayout>
