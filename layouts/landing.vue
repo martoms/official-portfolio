@@ -2,11 +2,11 @@
   <div class="relative flex flex-col h-screen w-screen landing overflow-hidden font-Poppins">
     <!-- Background -->
     <div
-      class="absolute h-[68%] w-full dev-bg transition-all duration-1000 ease-in-out"
+      class="absolute h-[68%] w-full dev-bg transition-smooth"
       :class="currentBg === 'dev-bg' ? 'opacity-100' : 'opacity-0'"
     ></div>
     <div
-      class="absolute h-[68%] w-full designer-bg transition-all duration-1000 ease-in-out"
+      class="absolute h-[68%] w-full designer-bg transition-smooth"
       :class="currentBg === 'designer-bg' ? 'opacity-100' : 'opacity-0'"
     ></div>
     <header

@@ -37,8 +37,15 @@
       </div>
     </div>
     <template #nav>
-      <div class="relative top-[-50px] h-[inherit]">
-        <div class="absolute top-1/2 translate-y-[-50%] h-[80px] w-full gradient-x-center"></div>
+      <div class="relative top-[-50px] justify-center h-[inherit]">
+        <div class="absolute-center-y h-[80px] w-full gradient-x-center"></div>
+        <div class="absolute-center-y flex flex-col justify-center h-full w-full overflow-y-scroll">
+          <ul class="text-center">
+            <li class="nav-item text-5xl font-black py-[5px] mt-[250px]">Portfolio</li>
+            <li class="nav-item text-5xl font-black py-[5px]">Profile</li>
+            <li class="nav-item text-5xl font-black py-[5px] mb-[105px]">Contact</li>
+          </ul>
+        </div>
       </div>
     </template>
   </NuxtLayout>

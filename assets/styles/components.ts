@@ -17,5 +17,11 @@ export const components = {
     backgroundPosition: 'left -350px bottom',
     backgroundSize: 'cover',
     mixBlendMode: 'overlay'
+  },
+  '.nav-item': {
+    position: 'relative',
+    zIndex: '10',
+    color: colors.white.DEFAULT,
+    cursor: 'pointer'
   }
 }
