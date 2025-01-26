@@ -1,8 +1,8 @@
 <template>
-  <NuxtLayout name="landing">
+  <NuxtLayout name="landing" :currentBg>
     <template #header>
-      <div class="flex-xy flex-col gap-2">
-        <VImage src="/images/name-logo.svg" alt="name-logo" class="h-[60px]" />
+      <div class="flex-xy flex-col gap-2 w-full">
+        <VImage src="/images/name-logo.svg" alt="name-logo" class="flex-x h-[60px] w-full" />
         <div class="mt-3">
           <VText class="text-primary text-lg font-semibold">
             Hi, I am a
@@ -21,20 +21,11 @@
         </div>
       </div>
     </template>
-    <div class="relative h-full w-full landing">
-      <!-- Background -->
-      <div
-        class="absolute h-[68%] w-full dev-bg transition-all duration-1000 ease-in-out"
-        :class="currentBg === 'dev-bg' ? 'opacity-100' : 'opacity-0'"
-      ></div>
-      <div
-        class="absolute h-[68%] w-full designer-bg transition-all duration-1000 ease-in-out"
-        :class="currentBg === 'designer-bg' ? 'opacity-100' : 'opacity-0'"
-      ></div>
+    <div class="relative flex flex-col h-full w-full">
       <!-- Topbar -->
-      <div class="relative z-10 h-[60px]"></div>
+      <div class="h-[60px]"></div>
       <!-- Content -->
-      <div class="relative z-10 flex-xy flex-col gap-10 w-full h-[45%]">
+      <div class="flex-xy flex-col flex-1 gap-5 h-full w-full">
         <!-- Greetings -->
         <div>
           <VText class="text-blue-dark text-center leading-5">
@@ -42,10 +33,14 @@
             have a happy {{ day }}!
           </VText>
         </div>
-        <VImage src="/images/avatar.svg" alt="avatar" class="h-[300px]" />
+        <VImage src="/images/avatar.svg" alt="avatar" class="h-[300px] max-h-[40vh]" />
       </div>
     </div>
-    <template #nav></template>
+    <template #nav>
+      <div class="h-[inherit]">
+        <div></div>
+      </div>
+    </template>
   </NuxtLayout>
 </template>
 
