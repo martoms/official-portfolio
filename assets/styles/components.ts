@@ -2,7 +2,7 @@ import { colors } from './colors'
 
 export const components = {
   '.landing': {
-    backgroundImage: `linear-gradient(to bottom, ${colors.blue1.DEFAULT} 0%, ${colors.white.DEFAULT} 100%)`
+    backgroundImage: `linear-gradient(to bottom, ${colors.blue.light} 0%, ${colors.white.DEFAULT} 100%)`
   },
   '.dev-bg': {
     backgroundImage: 'url("/images/dev-bg.svg")',
