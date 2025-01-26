@@ -25,6 +25,10 @@ const {
   loop = true
 } = defineProps<Props>()
 
+const emits = defineEmits<{
+  (e: 'update', value: string): void
+}>()
+
 const currentText = ref('')
 const currentIndex = ref(0)
 const currentStringIndex = ref(0)
@@ -51,6 +55,7 @@ function typeText() {
     currentIndex.value++
     startTyping()
   } else {
+    emits('update', currentText.value)
     pauseBackspaceType()
   }
 }
