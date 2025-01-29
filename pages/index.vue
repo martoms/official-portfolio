@@ -44,23 +44,23 @@
             <li
               :ref="(el) => (navItems.portfolio = el as HTMLElement)"
               class="nav-item text-5xl font-black py-[5px] mt-[250px]"
+              :class="navItemStyleRatio.portfolio"
             >
               Portfolio
-              <!-- {{ navItems.portfolio && getRatio(navItems.portfolio) }} -->
             </li>
             <li
               :ref="(el) => (navItems.profile = el as HTMLElement)"
               class="nav-item text-5xl font-black py-[5px]"
+              :class="navItemStyleRatio.profile"
             >
               Profile
-              <!-- {{ getRatio(navItems.profile) }} -->
             </li>
             <li
               :ref="(el) => (navItems.contact = el as HTMLElement)"
               class="nav-item text-5xl font-black py-[5px] mb-[105px]"
+              :class="navItemStyleRatio.contact"
             >
               Contact
-              <!-- {{ getRatio(navItems.contact) }} -->
             </li>
           </ul>
         </div>
@@ -70,7 +70,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useDateFormat, useNow, useElementBounding } from '@vueuse/core'
 
 type NaviItemsEl = {
@@ -87,6 +86,18 @@ const navItems = ref<NaviItemsEl>({
   contact: null
 })
 const { top, bottom } = useElementBounding(navSelectorEl)
+
+const navItemStyleRatio = computed(() => {
+  const portfolio = getRatio(navItems.value.portfolio)
+  const profile = getRatio(navItems.value.profile)
+  const contact = getRatio(navItems.value.contact)
+
+  return {
+    portfolio: `scale-[${portfolio}] opacity-[${portfolio}]`,
+    profile: `scale-[${profile}] opacity-[${profile}]`,
+    contact: `scale-[${contact}] opacity-[${contact}]`
+  }
+})
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
@@ -105,15 +116,17 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
     : (currentBg.value = 'designer-bg')
 }
 
-const getRatio = (el: HTMLElement | null) => {
+function getRatio(el: HTMLElement | null) {
   if (!el) return 0
-  const { height, top: elTop, bottom: elBottom } = useElementBounding(el)
+  const { top: elTop, bottom: elBottom } = useElementBounding(el)
+  const threshold = 50
   let diff = 0
   if (elTop.value < top.value) {
     diff = top.value - elTop.value
   } else if (elBottom.value > bottom.value) {
     diff = elBottom.value - bottom.value
   }
-  return height.value - diff / height.value
+  const proximity = (threshold - diff) / threshold
+  return proximity > 0 ? proximity : 0
 }
 </script>
