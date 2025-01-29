@@ -38,12 +38,30 @@
     </div>
     <template #nav>
       <div class="relative top-[-50px] justify-center h-[inherit]">
-        <div class="absolute-center-y h-[80px] w-full gradient-x-center"></div>
+        <div ref="navSelectorEl" class="absolute-center-y h-[80px] w-full gradient-x-center"></div>
         <div class="absolute-center-y flex flex-col justify-center h-full w-full overflow-y-scroll">
           <ul class="text-center">
-            <li class="nav-item text-5xl font-black py-[5px] mt-[250px]">Portfolio</li>
-            <li class="nav-item text-5xl font-black py-[5px]">Profile</li>
-            <li class="nav-item text-5xl font-black py-[5px] mb-[105px]">Contact</li>
+            <li
+              :ref="(el) => (navItems.portfolio = el as HTMLElement)"
+              class="nav-item text-5xl font-black py-[5px] mt-[250px]"
+            >
+              Portfolio
+              <!-- {{ navItems.portfolio && getRatio(navItems.portfolio) }} -->
+            </li>
+            <li
+              :ref="(el) => (navItems.profile = el as HTMLElement)"
+              class="nav-item text-5xl font-black py-[5px]"
+            >
+              Profile
+              <!-- {{ getRatio(navItems.profile) }} -->
+            </li>
+            <li
+              :ref="(el) => (navItems.contact = el as HTMLElement)"
+              class="nav-item text-5xl font-black py-[5px] mb-[105px]"
+            >
+              Contact
+              <!-- {{ getRatio(navItems.contact) }} -->
+            </li>
           </ul>
         </div>
       </div>
@@ -53,9 +71,22 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { useDateFormat, useNow } from '@vueuse/core'
+import { useDateFormat, useNow, useElementBounding } from '@vueuse/core'
+
+type NaviItemsEl = {
+  portfolio: HTMLElement | null
+  profile: HTMLElement | null
+  contact: HTMLElement | null
+}
 
 const currentBg = ref('dev-bg')
+const navSelectorEl = ref<HTMLElement | null>(null)
+const navItems = ref<NaviItemsEl>({
+  portfolio: null,
+  profile: null,
+  contact: null
+})
+const { top, bottom } = useElementBounding(navSelectorEl)
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
@@ -72,5 +103,17 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
   return text === 'Software Engineer'
     ? (currentBg.value = 'dev-bg')
     : (currentBg.value = 'designer-bg')
+}
+
+const getRatio = (el: HTMLElement | null) => {
+  if (!el) return 0
+  const { height, top: elTop, bottom: elBottom } = useElementBounding(el)
+  let diff = 0
+  if (elTop.value < top.value) {
+    diff = top.value - elTop.value
+  } else if (elBottom.value > bottom.value) {
+    diff = elBottom.value - bottom.value
+  }
+  return height.value - diff / height.value
 }
 </script>
