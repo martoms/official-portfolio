@@ -25,8 +25,8 @@ export default {
       keyframes,
       animation,
       fontFamily: {
-        Poppins: ['Poppins', 'sans-serif'],
-        Montserrat: ['Montserrat', 'sans-serif']
+        poppins: ['Poppins', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif']
       }
     }
   },

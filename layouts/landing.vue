@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex flex-col h-screen w-screen landing overflow-hidden font-Poppins">
+  <div class="relative flex flex-col h-screen w-screen landing overflow-hidden font-poppins">
     <!-- Background -->
     <div
       class="absolute h-[68%] w-full dev-bg transition-smooth"
