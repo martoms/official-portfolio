@@ -60,6 +60,7 @@
 
 <script lang="ts" setup>
 import { useDateFormat, useNow, useElementBounding, useScroll } from '@vueuse/core'
+import { isClient } from '@vueuse/core'
 
 const currentBg = ref('dev-bg')
 const navSelectorEl = ref<HTMLElement | null>(null)
@@ -72,16 +73,18 @@ const { top: selectorTop, bottom: selectorBottom } = useElementBounding(navSelec
 const { y: scrollY } = useScroll(navContainerEl, { behavior: 'smooth' })
 
 onMounted(() => {
-  watch(
-    scrollY,
-    () => {
-      if (!navContainerEl.value) return
-      updateNavItemStyle(portFolioEl.value)
-      updateNavItemStyle(profileEl.value)
-      updateNavItemStyle(contactEl.value)
-    },
-    { immediate: true }
-  )
+  if (isClient) {
+    watch(
+      scrollY,
+      () => {
+        if (!navContainerEl.value) return
+        updateNavItemStyle(portFolioEl.value)
+        updateNavItemStyle(profileEl.value)
+        updateNavItemStyle(contactEl.value)
+      },
+      { immediate: true }
+    )
+  }
 })
 
 function updateNavItemStyle(el: HTMLElement | null) {
