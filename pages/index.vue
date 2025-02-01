@@ -39,26 +39,23 @@
     <template #nav>
       <div class="relative top-[-50px] justify-center h-[inherit]">
         <div ref="navSelectorEl" class="absolute-center-y h-[80px] w-full gradient-x-center"></div>
-        <div class="absolute-center-y flex flex-col justify-center h-full w-full overflow-y-scroll">
+        <div
+          ref="navContainerEl"
+          class="absolute-center-y flex flex-col justify-center h-full w-full no-scrollbar overflow-y-scroll"
+        >
           <ul class="text-center">
             <li
-              :ref="(el) => (navItems.portfolio = el as HTMLElement)"
-              class="nav-item text-5xl font-black py-[5px] mt-[250px]"
-              :class="navItemStyleRatio.portfolio"
+              ref="portFolioEl"
+              class="nav-item text-3xl font-black py-[4px] text-shadow-blue mt-[230px]"
             >
               Portfolio
             </li>
-            <li
-              :ref="(el) => (navItems.profile = el as HTMLElement)"
-              class="nav-item text-5xl font-black py-[5px]"
-              :class="navItemStyleRatio.profile"
-            >
+            <li ref="profileEl" class="nav-item text-3xl font-black py-[4px] text-shadow-blue">
               Profile
             </li>
             <li
-              :ref="(el) => (navItems.contact = el as HTMLElement)"
-              class="nav-item text-5xl font-black py-[5px] mb-[105px]"
-              :class="navItemStyleRatio.contact"
+              ref="contactEl"
+              class="nav-item text-3xl font-black py-[4px] text-shadow-blue mb-[115px]"
             >
               Contact
             </li>
@@ -70,34 +67,46 @@
 </template>
 
 <script lang="ts" setup>
-import { useDateFormat, useNow, useElementBounding } from '@vueuse/core'
-
-type NaviItemsEl = {
-  portfolio: HTMLElement | null
-  profile: HTMLElement | null
-  contact: HTMLElement | null
-}
+import { useDateFormat, useNow, useElementBounding, useScroll } from '@vueuse/core'
 
 const currentBg = ref('dev-bg')
 const navSelectorEl = ref<HTMLElement | null>(null)
-const navItems = ref<NaviItemsEl>({
-  portfolio: null,
-  profile: null,
-  contact: null
+const navContainerEl = ref<HTMLElement | null>(null)
+const portFolioEl = ref<HTMLElement | null>(null)
+const profileEl = ref<HTMLElement | null>(null)
+const contactEl = ref<HTMLElement | null>(null)
+
+const { top: selectorTop, bottom: selectorBottom } = useElementBounding(navSelectorEl)
+const { y: scrollY, isScrolling } = useScroll(navContainerEl, { behavior: 'smooth' })
+
+onMounted(() => {
+  watch(
+    scrollY,
+    () => {
+      if (!navContainerEl.value) return
+      updateNavItemStyle(portFolioEl.value)
+      updateNavItemStyle(profileEl.value)
+      updateNavItemStyle(contactEl.value)
+    },
+    { immediate: true }
+  )
 })
-const { top, bottom } = useElementBounding(navSelectorEl)
 
-const navItemStyleRatio = computed(() => {
-  const portfolio = getRatio(navItems.value.portfolio)
-  const profile = getRatio(navItems.value.profile)
-  const contact = getRatio(navItems.value.contact)
-
-  return {
-    portfolio: `scale-[${portfolio}] opacity-[${portfolio}]`,
-    profile: `scale-[${profile}] opacity-[${profile}]`,
-    contact: `scale-[${contact}] opacity-[${contact}]`
+function updateNavItemStyle(el: HTMLElement | null) {
+  if (!el) return
+  const { top: elTop, bottom: elBottom } = el.getBoundingClientRect()
+  const threshold = 50
+  let diff = 0
+  if (elTop < selectorTop.value) {
+    diff = selectorTop.value - elTop
+  } else if (elBottom > selectorBottom.value) {
+    diff = elBottom - selectorBottom.value
   }
-})
+  const proximity = (threshold - diff) / threshold + 0.5
+  const ratio = proximity > 0 ? proximity : 0
+  el.style.transform = `scale(${ratio})`
+  el.style.opacity = `${ratio}`
+}
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
@@ -114,19 +123,5 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
   return text === 'Software Engineer'
     ? (currentBg.value = 'dev-bg')
     : (currentBg.value = 'designer-bg')
-}
-
-function getRatio(el: HTMLElement | null) {
-  if (!el) return 0
-  const { top: elTop, bottom: elBottom } = useElementBounding(el)
-  const threshold = 50
-  let diff = 0
-  if (elTop.value < top.value) {
-    diff = top.value - elTop.value
-  } else if (elBottom.value > bottom.value) {
-    diff = elBottom.value - bottom.value
-  }
-  const proximity = (threshold - diff) / threshold
-  return proximity > 0 ? proximity : 0
 }
 </script>
