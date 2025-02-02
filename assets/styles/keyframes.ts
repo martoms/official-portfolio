@@ -19,5 +19,11 @@ export const keyframes = {
   'fly-right': {
     '0%': { transform: 'translateX(0)' },
     '100%': { transform: 'translateX(70%)' }
+  },
+  callout: {
+    '0%': { opacity: 0, transform: 'scale(0) rotate(20deg)' },
+    '25%': { transform: 'rotate(-40deg)' },
+    '50%': { transform: 'rotate(20deg)' },
+    '100%': { opacity: 1, transform: 'scale(1) rotate(0deg)' }
   }
 }
