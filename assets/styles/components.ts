@@ -7,14 +7,14 @@ export const components = {
   '.dev-bg': {
     backgroundImage: 'url("/images/dev-bg.svg")',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'left -350px bottom',
+    backgroundPosition: 'left bottom',
     backgroundSize: 'cover',
     mixBlendMode: 'color-dodge'
   },
   '.designer-bg': {
     backgroundImage: 'url("/images/designer-bg.svg")',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'left -350px bottom',
+    backgroundPosition: 'left bottom',
     backgroundSize: 'cover',
     mixBlendMode: 'overlay'
   },
