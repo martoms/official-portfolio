@@ -5,20 +5,20 @@
     </template>
     <div class="relative flex flex-col h-full w-full">
       <!-- Topbar -->
-      <div class="h-[60px]"></div>
+      <div class="h-[60px] w-full xl:fixed xl:top-0 z-10"></div>
       <!-- Content -->
       <div class="flex-xy flex-col flex-1 gap-5 md:gap-10 h-full w-full">
         <!-- Greetings -->
-        <div>
-          <VText class="text-blue-dark text-center md:text-xl leading-5">
-            Good {{ dayPeriod }},<br />
+        <div class="xl:fixed xl:top-[80px] xl:left-0 xl:right-0 xl:w-full">
+          <VText class="text-blue-dark text-center md:text-xl xl:text-lg leading-5">
+            Good {{ dayPeriod }},<br class="xl:hidden" />
             have a happy {{ day }}!
           </VText>
         </div>
         <VImage
           src="/images/avatar.svg"
           alt="avatar"
-          class="h-[300px] max-h-[40vh] md:h-[500px] md:max-h-[35vh]"
+          class="h-[300px] max-h-[40vh] md:h-[500px] md:max-h-[35vh] xl:h-[650px] xl:max-h-[60vh]"
         />
       </div>
     </div>

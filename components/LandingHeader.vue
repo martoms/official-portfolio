@@ -3,9 +3,9 @@
     <VImage
       src="/images/name-logo.svg"
       alt="name-logo"
-      class="flex-x h-[60px] md:h-[100px] w-full"
+      class="flex-x xl:justify-start h-[60px] md:h-[100px] xl:h-[150px] w-full"
     />
-    <div>
+    <div class="xl:w-full">
       <VText class="text-primary text-lg md:text-3xl font-semibold">
         Hi, I am a
         <VText tag="span">
