@@ -23,18 +23,21 @@
       </div>
     </div>
     <template #nav>
-      <LandingNav />
+      <LandingNav v-if="width < 1280" />
+      <LandingNavLandscape v-else />
     </template>
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-import { useDateFormat, useNow } from '@vueuse/core'
+import { useDateFormat, useNow, useWindowSize } from '@vueuse/core'
 
 const currentBg = ref('dev-bg')
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
+
+const { width } = useWindowSize()
 
 const dayPeriod = computed(() => {
   const hrs = Number.parseInt(hour.value)

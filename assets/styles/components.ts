@@ -1,4 +1,5 @@
 import { colors } from './colors'
+import { utilities } from './utilities'
 
 export const components = {
   '.landing': {
@@ -18,25 +19,11 @@ export const components = {
     backgroundSize: 'cover',
     mixBlendMode: 'overlay'
   },
-  // '.dev-bg-xl': {
-  //   backgroundImage: 'url("/images/dev-bg.svg")',
-  //   backgroundRepeat: 'no-repeat',
-  //   backgroundPosition: 'left bottom',
-  //   backgroundSize: 'auto 100%',
-  //   mixBlendMode: 'color-dodge'
-  // },
-  // '.designer-bg-xl': {
-  //   backgroundImage: 'url("/images/designer-bg.svg")',
-  //   backgroundRepeat: 'no-repeat',
-  //   backgroundPosition: 'left bottom',
-  //   backgroundSize: 'auto 100%',
-  //   mixBlendMode: 'overlay'
-  // },
   '.nav-item': {
     position: 'relative',
     zIndex: '10',
     color: colors.white.DEFAULT,
     cursor: 'pointer',
-    textShadow: `0px 0px 10px ${colors.primary.DEFAULT}`
+    textShadow: utilities['.text-shadow-blue']
   }
 }

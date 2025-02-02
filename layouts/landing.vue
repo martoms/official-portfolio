@@ -22,7 +22,7 @@
       </header>
       <nav
         role="navigation"
-        class="relative xl:absolute xl:-bottom-12 z-10 order-3 h-[280px] w-full"
+        class="relative xl:absolute xl:bottom-[-100px] z-10 order-3 h-[280px] w-full"
       >
         <slot name="nav" />
       </nav>
