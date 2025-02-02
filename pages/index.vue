@@ -23,20 +23,22 @@
       </div>
     </div>
     <template #nav>
-      <LandingNav v-if="width < 1280" />
-      <LandingNavLandscape v-else />
+      <component :is="navComponent" />
     </template>
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-import { useDateFormat, useNow, useWindowSize } from '@vueuse/core'
+import { useDateFormat, useNow, useWindowSize, isClient } from '@vueuse/core'
+import LandingNavLandscape from '@/components/LandingNavLandscape.vue'
+import LandingNav from '@/components/LandingNav.vue'
+import type { Component } from 'vue'
 
 const currentBg = ref('dev-bg')
+const navComponent = shallowRef<Component>(LandingNav)
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
-
 const { width } = useWindowSize()
 
 const dayPeriod = computed(() => {
@@ -52,4 +54,14 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
     ? (currentBg.value = 'dev-bg')
     : (currentBg.value = 'designer-bg')
 }
+
+onMounted(() => {
+  watch(
+    width,
+    () => {
+      if (isClient && width.value > 1280) navComponent.value = LandingNavLandscape
+    },
+    { immediate: true }
+  )
+})
 </script>

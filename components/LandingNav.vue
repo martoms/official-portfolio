@@ -11,7 +11,7 @@
       <ul class="text-center">
         <li
           ref="portFolioEl"
-          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mt-[230px] md:mt-[260px]"
+          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mt-[230px] md:mt-[270px]"
         >
           Portfolio
         </li>
@@ -20,7 +20,7 @@
         </li>
         <li
           ref="contactEl"
-          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mb-[115px] md:mb-[105px]"
+          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mb-[115px] md:mb-[100px]"
         >
           Contact
         </li>
