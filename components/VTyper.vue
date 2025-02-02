@@ -6,7 +6,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue'
 import { useTimeoutFn } from '@vueuse/core'
 
 interface Props {
@@ -75,5 +74,3 @@ function backspaceText() {
 
 watchEffect(() => startDelay())
 </script>
-
-<style scoped></style>

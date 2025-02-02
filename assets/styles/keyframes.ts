@@ -11,5 +11,13 @@ export const keyframes = {
   'fade-out': {
     '0%': { opacity: 1 },
     '100%': { opacity: 0 }
+  },
+  'fly-left': {
+    '0%': { transform: 'translateX(0)' },
+    '100%': { transform: 'translateX(-70%)' }
+  },
+  'fly-right': {
+    '0%': { transform: 'translateX(0)' },
+    '100%': { transform: 'translateX(70%)' }
   }
 }
