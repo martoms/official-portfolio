@@ -1,7 +1,7 @@
 <template>
   <VText tag="span" class="whitespace-nowrap">
     {{ currentText }}
-    <VText tag="span" class="animate-blink font-normal"> |</VText>
+    <VText v-if="cursor" tag="span" class="animate-blink font-normal"> |</VText>
   </VText>
 </template>
 
@@ -10,10 +10,12 @@ import { useTimeoutFn } from '@vueuse/core'
 
 interface Props {
   strings: string[]
-  typingSpeed: number
-  backspaceSpeed: number
-  delayBeforeStart: number
-  loop: boolean
+  typingSpeed?: number
+  backspaceSpeed?: number
+  delayBeforeStart?: number
+  loop?: boolean
+  cursor?: boolean
+  backspace?: boolean
 }
 
 const {
@@ -21,7 +23,9 @@ const {
   typingSpeed = 100,
   backspaceSpeed = 50,
   delayBeforeStart = 1000,
-  loop = true
+  loop = true,
+  cursor = true,
+  backspace = true
 } = defineProps<Props>()
 
 const emits = defineEmits<{
@@ -32,21 +36,40 @@ const currentText = ref('')
 const currentIndex = ref(0)
 const currentStringIndex = ref(0)
 
-const { start: startDelay } = useTimeoutFn(() => {
-  typeText()
-}, delayBeforeStart)
+// Timeout for the initial delay
+const { start: startDelay, stop: stopDelay } = useTimeoutFn(
+  () => {
+    typeText()
+  },
+  delayBeforeStart,
+  { immediate: false }
+)
 
-const { start: startTyping } = useTimeoutFn(() => {
-  typeText()
-}, typingSpeed)
+// Timeout for typing
+const { start: startTyping, stop: stopTyping } = useTimeoutFn(
+  () => {
+    typeText()
+  },
+  typingSpeed,
+  { immediate: false }
+)
 
-const { start: pauseBackspaceType } = useTimeoutFn(() => {
-  backspaceText()
-}, 2000)
+// Timeout for backspacing
+const { start: startBackspace, stop: stopBackspace } = useTimeoutFn(
+  () => {
+    backspaceText()
+  },
+  backspaceSpeed,
+  { immediate: false }
+)
 
-const { start: startBackspaceTyping } = useTimeoutFn(() => {
-  backspaceText()
-}, backspaceSpeed)
+const { start: startPause, stop: stopPause } = useTimeoutFn(
+  () => {
+    backspaceText()
+  },
+  2000,
+  { immediate: false }
+)
 
 function typeText() {
   if (currentIndex.value < strings[currentStringIndex.value].length) {
@@ -55,15 +78,16 @@ function typeText() {
     startTyping()
   } else {
     emits('update', currentText.value)
-    pauseBackspaceType()
+    startPause()
   }
 }
 
 function backspaceText() {
+  if (!backspace) return
   if (currentIndex.value > 0) {
     currentText.value = currentText.value.slice(0, -1)
     currentIndex.value--
-    startBackspaceTyping()
+    startBackspace()
   } else {
     if (loop) {
       currentStringIndex.value = (currentStringIndex.value + 1) % strings.length
@@ -72,5 +96,14 @@ function backspaceText() {
   }
 }
 
-watchEffect(() => startDelay())
+onMounted(() => {
+  startDelay()
+})
+
+onUnmounted(() => {
+  stopDelay()
+  stopTyping()
+  stopBackspace()
+  stopPause()
+})
 </script>

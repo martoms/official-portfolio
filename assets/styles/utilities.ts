@@ -25,6 +25,12 @@ export const utilities = {
     left: '50%',
     transform: 'translateX(-50%)'
   },
+  '.absolute-center-xy': {
+    position: 'absolute',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    top: '50%'
+  },
   // background
   '.gradient-x-center': {
     backgroundImage: `linear-gradient(to left, rgba(0,0,0,0), ${colors.primary.DEFAULT}, rgba(0,0,0,0))`
@@ -41,11 +47,14 @@ export const utilities = {
       display: 'none' // Chrome, Safari, and Opera
     }
   },
-  // texts
+  // shadows
   '.text-shadow': {
     textShadow: `0px 0px 5px rgba(0, 0, 0, 0.5)`
   },
   '.text-shadow-blue': {
     textShadow: `0px 0px 10px ${colors.primary.DEFAULT}`
+  },
+  '.drop-shadow-2': {
+    filter: 'drop-shadow(2px 10px 5px rgba(57, 57, 57, 0.7))'
   }
 }
