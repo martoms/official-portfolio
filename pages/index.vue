@@ -25,17 +25,17 @@
           <!-- Callout -->
           <div
             v-if="showCallout"
-            class="absolute -top-2 -left-10 drop-shadow-2 animate-callout"
+            class="absolute -top-2 -left-10 md:left-[-100px] drop-shadow-2 animate-callout"
             @click="showSecondMessage = !showSecondMessage"
           >
-            <VImage src="/images/callout.svg" alt="callout" class="h-[100px]" />
+            <VImage src="/images/callout.svg" alt="callout" class="h-[100px] md:h-[200px]" />
             <VTyper
               v-if="!showSecondMessage"
               :strings="['Click Me!']"
               :loop="false"
               :cursor="false"
               :backspace="false"
-              class="absolute top-7 left-4 w-full text-lg font-semibold whitespace-nowrap"
+              class="absolute top-7 md:top-[60px] left-4 md:left-7 w-full text-lg md:text-4xl font-semibold whitespace-nowrap"
             />
             <VTyper
               v-else
@@ -44,7 +44,7 @@
               :loop="false"
               :cursor="false"
               :backspace="false"
-              class="absolute top-6 left-4 text-lg font-semibold text-wrap leading-5"
+              class="absolute top-6 left-4 md:left-6 text-lg md:text-4xl font-semibold text-wrap leading-5"
             />
           </div>
         </div>
