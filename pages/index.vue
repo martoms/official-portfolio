@@ -41,15 +41,14 @@ const navComponents = {
 }
 const currentNavComponent = ref('mobile' as keyof typeof navComponents)
 
-const hour = useDateFormat(useNow(), 'HH')
+const hour = ref(0)
 const day = useDateFormat(useNow(), 'dddd')
 const { width } = useWindowSize()
 
 const dayPeriod = computed(() => {
-  const hrs = Number.parseInt(hour.value)
-  if (hrs < 12) return 'morning'
-  else if (hrs === 12) return 'noon'
-  else if (hrs < 18) return 'afternoon'
+  if (hour.value < 12) return 'morning'
+  else if (hour.value === 12) return 'noon'
+  else if (hour.value < 18) return 'afternoon'
   else return 'evening'
 })
 
@@ -61,6 +60,7 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
 
 onMounted(() => {
   if (!isClient) return
+  hour.value = Number(useDateFormat(useNow(), 'HH').value)
   watch(
     width,
     () => {
