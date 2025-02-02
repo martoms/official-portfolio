@@ -23,7 +23,7 @@
       </div>
     </div>
     <template #nav>
-      <component :is="navComponent" />
+      <component :is="navComponents[currentNavComponent]" />
     </template>
   </NuxtLayout>
 </template>
@@ -35,7 +35,11 @@ import LandingNav from '@/components/LandingNav.vue'
 import type { Component } from 'vue'
 
 const currentBg = ref('dev-bg')
-const navComponent = shallowRef<Component>(LandingNav)
+const navComponents = {
+  mobile: LandingNav as Component,
+  desktop: LandingNavLandscape as Component
+}
+const currentNavComponent = ref('mobile' as keyof typeof navComponents)
 
 const hour = useDateFormat(useNow(), 'HH')
 const day = useDateFormat(useNow(), 'dddd')
@@ -56,10 +60,12 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
 }
 
 onMounted(() => {
+  if (!isClient) return
   watch(
     width,
     () => {
-      if (isClient && width.value > 1280) navComponent.value = LandingNavLandscape
+      if (width.value > 1280) currentNavComponent.value = 'desktop'
+      else currentNavComponent.value = 'mobile'
     },
     { immediate: true }
   )
