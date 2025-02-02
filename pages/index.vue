@@ -47,6 +47,8 @@
               class="absolute top-6 left-4 md:left-6 text-lg md:text-4xl font-semibold text-wrap leading-5"
             />
           </div>
+          <!-- Popups -->
+          <LandingPopup />
         </div>
       </section>
     </div>
