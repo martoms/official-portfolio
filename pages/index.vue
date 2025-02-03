@@ -21,10 +21,11 @@
             src="/images/avatar.svg"
             alt="avatar"
             class="h-[300px] max-h-[40vh] md:h-[500px] md:max-h-[35vh] xl:h-[650px] xl:max-h-[60vh]"
+            @click="showContent = true"
           />
           <!-- Callout -->
           <div
-            v-if="showCallout"
+            v-if="showCallout && !showContent"
             class="absolute -top-2 -left-10 md:left-[-100px] drop-shadow-2 animate-callout"
             @click="showSecondMessage = !showSecondMessage"
           >
@@ -48,7 +49,7 @@
             />
           </div>
           <!-- Popups -->
-          <LandingPopup />
+          <LandingPopup v-if="showContent" @close="showContent = false" />
         </div>
       </section>
     </div>
@@ -67,6 +68,7 @@ import type { Component } from 'vue'
 const currentBg = ref('dev-bg')
 const showCallout = ref(false)
 const showSecondMessage = ref(false)
+const showContent = ref(false)
 const navComponents = {
   mobile: LandingNav as Component,
   desktop: LandingNavLandscape as Component

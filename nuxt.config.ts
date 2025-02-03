@@ -18,7 +18,10 @@ export default defineNuxtConfig({
     plugins: ['@/server/plugins/mongodb.ts']
   },
   runtimeConfig: {
-    mongodbUri: process.env.MONGODB_URI
+    mongodbUri: process.env.MONGODB_URI,
+    quotesUri: process.env.QUOTES_URI,
+    jokesUri: process.env.JOKES_URI,
+    triviaUri: process.env.TRIVIA_URI
   },
   mongoose: {
     modelsDir: 'models',
