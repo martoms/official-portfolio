@@ -1,7 +1,8 @@
 <template>
-  <VDialogue @close="emits('close')">
+  <VDialogue @close="emits('close')" :size="size">
+    <LandingPopupQuotes :content="content" />
     <template #footer>
-      <VText class="w-full p-3 text-right text-sm text-secondary">
+      <VText class="w-full p-3 text-right text-sm md:text-lg xl:text-sm text-secondary">
         {{ attribution.text }}
         <VText
           tag="a"
@@ -17,12 +18,10 @@
 </template>
 
 <script lang="ts" setup>
+type Props = { size?: 'sm' | 'md' | 'auto' }
+const { size = 'auto' } = defineProps<Props>()
+
 const { attribution, content } = storeToRefs(useLandingContentsStore())
-const { getContent } = useLandingContentsStore()
-
-onBeforeMount(() => getContent())
-
-watch(content, () => console.log(content.value), { immediate: true })
 
 const emits = defineEmits(['close'])
 </script>

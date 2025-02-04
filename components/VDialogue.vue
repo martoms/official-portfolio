@@ -2,7 +2,7 @@
   <VModal>
     <section
       ref="dialogueEl"
-      class="relative left-1/2 -translate-x-1/2 bg-primary-background sm:max-w-full sm:min-w-full h-full rounded-lg overflow-hidden"
+      class="relative left-1/2 -translate-x-1/2 bg-primary-background h-full rounded-lg overflow-hidden"
       :class="getSizes"
     >
       <!-- Header -->
@@ -14,7 +14,10 @@
         </VButton>
       </div>
       <!-- Content -->
-      <div class="w-inherit border-solid border-y border-slate-200 min-h-[100px]">
+      <div
+        class="w-inherit border-solid border-y border-slate-200 min-h-[100px]"
+        :class="{ 'flex-xy': centered }"
+      >
         <slot />
       </div>
       <!-- Footer -->
@@ -31,8 +34,9 @@ import { onClickOutside } from '@vueuse/core'
 interface Props {
   title?: string
   size?: 'sm' | 'md' | 'auto'
+  centered?: boolean
 }
-const { title, size = 'full' } = defineProps<Props>()
+const { title, size = 'full', centered = true } = defineProps<Props>()
 
 const emits = defineEmits(['close'])
 
@@ -45,7 +49,7 @@ const getSizes = computed(() => {
     case 'md':
       return 'w-1/2'
     case 'auto':
-      return 'w-full md:w-1/2 xl:w-1/3'
+      return 'w-full md:w-2/3 xl:w-1/3'
     default:
       return 'w-full'
   }

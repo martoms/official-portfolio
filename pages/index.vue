@@ -20,18 +20,18 @@
           <VImage
             src="/images/avatar.svg"
             alt="avatar"
-            class="h-[300px] max-h-[40vh] md:h-[500px] md:max-h-[35vh] xl:h-[650px] xl:max-h-[60vh]"
-            @click="showContent = true"
+            class="h-[300px] max-h-[40vh] md:h-[500px] md:max-h-[35vh] xl:h-[650px] xl:max-h-[60vh] cursor-pointer"
+            @click="handleClickAvatar()"
           />
           <!-- Callout -->
           <div
-            v-if="showCallout && !showContent"
+            v-if="showCallout && content === null"
             class="absolute -top-2 -left-10 md:left-[-100px] drop-shadow-2 animate-callout"
             @click="showSecondMessage = !showSecondMessage"
           >
             <VImage src="/images/callout.svg" alt="callout" class="h-[100px] md:h-[200px]" />
             <VTyper
-              v-if="!showSecondMessage"
+              v-if="!showSecondMessage && !isPending"
               :strings="['Click Me!']"
               :loop="false"
               :cursor="false"
@@ -39,7 +39,7 @@
               class="absolute top-7 md:top-[60px] left-4 md:left-7 w-full text-lg md:text-4xl font-semibold whitespace-nowrap"
             />
             <VTyper
-              v-else
+              v-else-if="showSecondMessage && !isPending"
               :strings="['No, click my face!']"
               :delay-before-start="0"
               :loop="false"
@@ -47,9 +47,15 @@
               :backspace="false"
               class="absolute top-6 left-4 md:left-6 text-lg md:text-4xl font-semibold text-wrap leading-5"
             />
+            <VImage
+              v-if="isPending"
+              src="/images/ellipse-dots.gif"
+              alt="loading"
+              class="absolute top-0 md:top-10 left-5 md:left-[60px] h-[50px] md:h-[70px]"
+            />
           </div>
           <!-- Popups -->
-          <LandingPopup v-if="showContent" @close="showContent = false" />
+          <LandingPopup v-if="content && showContent" @close="showContent = false" />
         </div>
       </section>
     </div>
@@ -60,10 +66,14 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
 import { useDateFormat, useNow, useWindowSize, useTimeoutFn, isClient } from '@vueuse/core'
 import LandingNavLandscape from '@/components/LandingNavLandscape.vue'
 import LandingNav from '@/components/LandingNav.vue'
 import type { Component } from 'vue'
+
+const { isPending, content } = storeToRefs(useLandingContentsStore())
+const { getContent } = useLandingContentsStore()
 
 const currentBg = ref('dev-bg')
 const showCallout = ref(false)
@@ -94,6 +104,11 @@ const changeBg = (text: 'Software Engineer' | 'Graphic Designer') => {
   return text === 'Software Engineer'
     ? (currentBg.value = 'dev-bg')
     : (currentBg.value = 'designer-bg')
+}
+
+const handleClickAvatar = () => {
+  showContent.value = true
+  getContent()
 }
 
 onMounted(() => {
