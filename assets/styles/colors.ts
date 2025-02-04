@@ -3,7 +3,8 @@ import color from 'tailwindcss/colors'
 export const colors = {
   primary: {
     DEFAULT: color.sky[500],
-    hover: color.sky[400]
+    hover: color.sky[400],
+    background: color.slate[50]
   },
   secondary: {
     DEFAULT: color.slate[600],
