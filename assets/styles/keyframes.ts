@@ -25,5 +25,9 @@ export const keyframes = {
     '25%': { transform: 'rotate(-40deg)' },
     '50%': { transform: 'rotate(20deg)' },
     '100%': { opacity: 1, transform: 'scale(1) rotate(0deg)' }
+  },
+  'rotate': {
+    '0%': { transform: 'rotate(0deg)' },
+    '100%': { transform: 'rotate(360deg)' }
   }
 }
