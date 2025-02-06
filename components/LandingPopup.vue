@@ -1,6 +1,9 @@
 <template>
   <VDialogue @close="emits('close')" :size="size">
-    <LandingPopupQuotes :content="content" />
+    <component
+      :is="contentComponent[contentType as keyof typeof contentComponent]"
+      :content="content"
+    />
     <template #footer>
       <VText class="w-full p-3 text-right text-sm md:text-lg xl:text-sm text-secondary">
         {{ attribution.text }}
@@ -18,8 +21,18 @@
 </template>
 
 <script lang="ts" setup>
+import LandingPopupQuotes from '@/components/LandingPopupQuotes.vue'
+import LandingPopupJokes from '@/components/LandingPopupJokes.vue'
+
 type Props = { size?: 'sm' | 'md' | 'auto' }
 const { size = 'auto' } = defineProps<Props>()
+
+const { contentType } = storeToRefs(useLandingContentsStore())
+
+const contentComponent = {
+  quotes: LandingPopupQuotes as Component,
+  jokes: LandingPopupJokes as Component
+}
 
 const { attribution, content } = storeToRefs(useLandingContentsStore())
 

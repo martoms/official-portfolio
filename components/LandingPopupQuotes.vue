@@ -1,6 +1,6 @@
 <template>
   <div class="p-5 md:p-12 w-full">
-    <VText class="text-primary text-center italic md:text-2xl xl:text-lg font-semibold">
+    <VText class="text-primary text-center italic md:text-2xl xl:text-lg">
       <VTyper
         v-if="content?.q"
         :strings="[content?.q]"
@@ -23,8 +23,6 @@
 </template>
 
 <script lang="ts" setup>
-import type { Quotes } from '@/types/landingContents'
-
 type Props = { content: Quotes | null }
 defineProps<Props>()
 

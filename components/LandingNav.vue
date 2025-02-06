@@ -11,16 +11,19 @@
       <ul class="text-center">
         <li
           ref="portFolioEl"
-          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mt-[230px] md:mt-[270px]"
+          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mt-[230px] md:mt-[270px] transition-all ease-linear"
         >
           Portfolio
         </li>
-        <li ref="profileEl" class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px]">
+        <li
+          ref="profileEl"
+          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] transition-all ease-linear"
+        >
           Profile
         </li>
         <li
           ref="contactEl"
-          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mb-[115px] md:mb-[100px]"
+          class="nav-item text-3xl md:text-4xl font-black py-[4px] md:py-[10px] mb-[115px] md:mb-[100px] transition-all ease-linear"
         >
           Contact
         </li>

@@ -5,16 +5,16 @@ export const useValidateFetch = async (
   method: 'GET' | 'POST' | 'PATCH' | 'PUT' = 'GET'
 ) => {
   try {
-    const { data: res, error } = await useFetch(url, {
+    const res = await $fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json'
       }
     })
 
-    const { data, code } = APIResponseSchema.parse(res.value)
+    const { data, code } = APIResponseSchema.parse(res)
 
-    return { data, code, error }
+    return { data, code }
   } catch (e) {
     return { data: null, code: 'API_FETCH_ERROR', error: e }
   }

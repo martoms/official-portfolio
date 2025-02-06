@@ -6,16 +6,13 @@
     <div class="relative flex flex-col h-full w-full">
       <!-- Topbar -->
       <section class="flex-y justify-end h-[60px] w-full xl:fixed xl:top-0 z-10">
-        <VButton
-          class="flex-xy h-16 w-16 text-white"
-          @click="showContentTypeSelection = !showContentTypeSelection"
-        >
+        <VButton class="flex-xy h-16 w-16 text-white" @click="showContentTypeSelection = true">
           <VIcon name="icon-gear" size="3xl" class="text-shadow" />
         </VButton>
         <div
           v-if="showContentTypeSelection"
-          ref="contentTypeSelectionEl"
-          class="fixed top-2 p-5 w-[calc(100%-20px)] h-[170px] left-1/2 -translate-x-1/2 bg-white/85 rounded-md"
+          ref="contentTypeEl"
+          class="fixed top-2 p-5 w-[calc(100%-20px)] md:w-1/3 h-[170px] left-1/2 -translate-x-1/2 animate-dialogue bg-white/95 shadow-lg rounded-md"
         >
           <VText class="text-primary">Choose what you want me to say:</VText>
           <div class="mt-5">
@@ -121,12 +118,11 @@ import {
 } from '@vueuse/core'
 import LandingNavLandscape from '@/components/LandingNavLandscape.vue'
 import LandingNav from '@/components/LandingNav.vue'
-import type { Component } from 'vue'
 
 const { isPending, content, contentType } = storeToRefs(useLandingContentsStore())
 const { getContent } = useLandingContentsStore()
 
-const contentTypeSelectionEl = ref()
+const contentTypeEl = ref()
 const currentBg = ref('dev-bg')
 const showCallout = ref(false)
 const showSecondMessage = ref(false)
@@ -164,7 +160,7 @@ const handleClickAvatar = () => {
   getContent()
 }
 
-onClickOutside(contentTypeSelectionEl, () => (showContentTypeSelection.value = false))
+onClickOutside(contentTypeEl, () => (showContentTypeSelection.value = false))
 
 onMounted(() => {
   if (!isClient) return

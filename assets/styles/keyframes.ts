@@ -26,8 +26,18 @@ export const keyframes = {
     '50%': { transform: 'rotate(20deg)' },
     '100%': { opacity: 1, transform: 'scale(1) rotate(0deg)' }
   },
-  'rotate': {
+  rotate: {
     '0%': { transform: 'rotate(0deg)' },
     '100%': { transform: 'rotate(360deg)' }
+  },
+  dialogue: {
+    '0%': {
+      transform: 'translate(-50%, -30%)',
+      left: '50%'
+    },
+    '100%': {
+      transform: 'translate(-50%, 0)',
+      left: '50%'
+    }
   }
 }
