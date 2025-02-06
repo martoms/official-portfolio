@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
 import { useValidateFetch } from '@/composables/useValidateFetch'
 import { codeAlert } from '@/utils/alerts'
-import { QuotesSchema } from '@/schemas/landingContents'
-import type { Quotes } from '@/types/landingContents'
+import { LandingContentSchema } from '@/schemas/landingContents'
 
 export const useLandingContentsStore = defineStore('landingContents', () => {
   const contentType = ref<'quotes' | 'jokes' | 'trivia'>('quotes')
   const isPending = ref(false)
-  const content = ref<Quotes | null>(null)
+  const content = ref<LandingContent | null>(null)
 
   const attribution = computed(() => {
     switch (contentType.value) {
@@ -44,7 +43,7 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     else if (code === 'API_PARSE_ERROR') codeAlert(code, attribution.value.name)
 
     try {
-      content.value = QuotesSchema.parse(data)
+      content.value = LandingContentSchema.parse(data)
     } catch {
       alert(
         `There seems to be a problem fetching data from ${attribution.value.name}. Please try other options.`

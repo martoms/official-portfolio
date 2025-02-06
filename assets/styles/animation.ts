@@ -4,5 +4,7 @@ export const animation = {
   'fade-out': 'fade-out 0.5s ease-in',
   'fly-left': 'fly-left 0.5s ease-in-out',
   'fly-right': 'fly-right 0.5s ease-in-out',
-  callout: 'callout 1s ease-in-out'
+  callout: 'callout 1s ease-in-out',
+  rotate: 'rotate 0.5s ease-in-out',
+  dialogue: 'dialogue 0.5s ease-in-out'
 }

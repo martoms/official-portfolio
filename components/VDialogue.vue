@@ -2,7 +2,7 @@
   <VModal>
     <section
       ref="dialogueEl"
-      class="relative left-1/2 -translate-x-1/2 bg-primary-background h-full rounded-lg overflow-hidden"
+      class="relative left-1/2 -translate-x-1/2 bg-primary-background h-full animate-dialogue rounded-lg overflow-hidden"
       :class="getSizes"
     >
       <!-- Header -->
