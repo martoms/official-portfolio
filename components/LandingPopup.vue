@@ -1,7 +1,7 @@
 <template>
   <VDialogue @close="emits('close')" :size="size">
     <component
-      :is="contentComponent[contentType as keyof typeof contentComponent]"
+      :is="contentComponent[contentMode as keyof typeof contentComponent]"
       :content="content"
     />
     <template #footer>
@@ -27,7 +27,7 @@ import LandingPopupJokes from '@/components/LandingPopupJokes.vue'
 type Props = { size?: 'sm' | 'md' | 'auto' }
 const { size = 'auto' } = defineProps<Props>()
 
-const { contentType } = storeToRefs(useLandingContentsStore())
+const { contentMode } = storeToRefs(useLandingContentsStore())
 
 const contentComponent = {
   quotes: LandingPopupQuotes as Component,

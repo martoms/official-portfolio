@@ -4,12 +4,12 @@ import { codeAlert } from '@/utils/alerts'
 import { LandingContentSchema } from '@/schemas/landingContents'
 
 export const useLandingContentsStore = defineStore('landingContents', () => {
-  const contentType = ref<'quotes' | 'jokes' | 'trivia'>('quotes')
+  const contentMode = ref<'quotes' | 'jokes' | 'trivia'>('quotes')
   const isPending = ref(false)
   const content = ref<LandingContent | null>(null)
 
   const attribution = computed(() => {
-    switch (contentType.value) {
+    switch (contentMode.value) {
       case 'quotes':
         return {
           text: 'Inspirational quotes provided by ',
@@ -37,7 +37,7 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     isPending.value = true
     content.value = null
 
-    const { data, code } = await useValidateFetch(`/api/${contentType.value}`)
+    const { data, code } = await useValidateFetch(`/api/${contentMode.value}`)
 
     if (errorCodes.includes(code)) codeAlert(code)
     else if (code === 'API_PARSE_ERROR') codeAlert(code, attribution.value.name)
@@ -54,7 +54,7 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
   }
 
   return {
-    contentType,
+    contentMode,
     attribution,
     isPending,
     content,
