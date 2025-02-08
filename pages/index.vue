@@ -5,45 +5,27 @@
     </template>
     <div class="relative flex flex-col h-full w-full">
       <!-- Topbar -->
-      <section class="flex-y justify-end h-[60px] w-full xl:fixed xl:top-0 z-10">
-        <VButton class="flex-xy h-16 w-16 text-white" @click="showContentTypeSelection = true">
+      <section class="flex-y justify-end h-[60px] w-full xl:fixed xl:top-0 z-20">
+        <VButton class="flex-xy h-16 w-16 text-white" @click="showContentModeSelection = true">
           <VIcon name="icon-gear" size="3xl" class="text-shadow" />
         </VButton>
         <div
-          v-if="showContentTypeSelection"
-          ref="contentTypeEl"
-          class="fixed top-2 p-5 w-[calc(100%-20px)] md:w-1/3 h-[170px] left-1/2 -translate-x-1/2 animate-dialogue bg-white/95 shadow-lg rounded-md"
+          v-if="showContentModeSelection"
+          ref="contentModeEl"
+          class="fixed top-2 p-5 w-[calc(100%-20px)] md:w-1/3 h-[150px] left-1/2 -translate-x-1/2 animate-dialogue bg-white/95 shadow-lg rounded-md"
         >
           <VText class="text-primary">Choose what you want me to say:</VText>
-          <div class="mt-5">
-            <div>
-              <input
-                type="radio"
-                name="quotes"
-                id="quotes"
-                value="quotes"
-                class="mr-1"
-                :checked="contentType === 'quotes'"
-                @change="contentType = 'quotes'"
-              />
-              <VText tag="label" for="quotes" class="text-primary-foreground font-semibold">
-                Quotes
-              </VText>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="jokes"
-                id="jokes"
-                value="jokes"
-                class="mr-1"
-                :checked="contentType === 'jokes'"
-                @change="contentType = 'jokes'"
-              />
-              <VText tag="label" for="jokes" class="text-primary-foreground font-semibold">
-                Jokes
-              </VText>
-            </div>
+          <div class="flex gap-3 mt-5">
+            <VButton
+              v-for="mode in contentModes"
+              :key="mode"
+              btn-style="full"
+              class="bg-secondary hover:bg-secondary-hover text-primary-background"
+              :class="{ '!bg-primary hover:!bg-primary-hover': contentMode === mode }"
+              @click="contentMode = mode"
+            >
+              {{ mode === 'quotes' ? 'Quotes' : mode === 'jokes' ? 'Jokes' : 'Trivia' }}
+            </VButton>
           </div>
         </div>
       </section>
@@ -119,22 +101,26 @@ import {
 import LandingNavLandscape from '@/components/LandingNavLandscape.vue'
 import LandingNav from '@/components/LandingNav.vue'
 
-const { isPending, content, contentType } = storeToRefs(useLandingContentsStore())
+useHead({ title: 'Marjohn | Home' })
+
+const { isPending, content, contentMode } = storeToRefs(useLandingContentsStore())
 const { getContent } = useLandingContentsStore()
 
-const contentTypeEl = ref()
+const contentModeEl = ref()
 const currentBg = ref('dev-bg')
 const showCallout = ref(false)
 const showSecondMessage = ref(false)
 const showContent = ref(false)
-const showContentTypeSelection = ref(false)
+const showContentModeSelection = ref(false)
 const navComponents = {
   mobile: LandingNav as Component,
   desktop: LandingNavLandscape as Component
 }
 const currentNavComponent = ref('mobile' as keyof typeof navComponents)
-
 const hour = ref(0)
+
+const contentModes = ['quotes', 'jokes', 'trivia'] as const
+
 const day = useDateFormat(useNow(), 'dddd')
 const { width } = useWindowSize()
 
@@ -160,7 +146,7 @@ const handleClickAvatar = () => {
   getContent()
 }
 
-onClickOutside(contentTypeEl, () => (showContentTypeSelection.value = false))
+onClickOutside(contentModeEl, () => (showContentModeSelection.value = false))
 
 onMounted(() => {
   if (!isClient) return

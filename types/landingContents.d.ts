@@ -5,7 +5,8 @@ import {
   JokeSchema,
   SingleJokeSchema,
   TwopartJokeSchema,
-  LandingContentSchema
+  LandingContentSchema,
+  TriviaFinalSchema
 } from '@/schemas/landingContents'
 
 declare global {
@@ -15,4 +16,5 @@ declare global {
   type TwopartJoke = z.infer<typeof TwopartJokeSchema>
   type Joke = z.infer<typeof JokeSchema>
   type LandingContent = z.infer<typeof LandingContentSchema>
+  type Trivia = z.infer<typeof TriviaFinalSchema>
 }

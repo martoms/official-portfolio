@@ -7,7 +7,8 @@
     >
       <!-- Header -->
       <div class="flex-y justify-between w-inherit h-[60px]">
-        <VText tag="h3" class="flex-y p-3 h-full w-full">{{ title }}</VText>
+        <VText v-if="title" tag="h3" class="flex-y p-3 h-full w-full">{{ title }}</VText>
+        <slot name="header" />
         <!-- Close Btn -->
         <VButton class="flex-xy p-5 text-secondary" @click="emits('close')">
           <VIcon name="icon-close" size="xl" />

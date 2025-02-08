@@ -18,5 +18,21 @@ export const colors = {
   },
   white: {
     DEFAULT: color.white
+  },
+  success: {
+    DEFAULT: color.green[500],
+    hover: color.green[400]
+  },
+  danger: {
+    DEFAULT: color.red[500],
+    hover: color.red[400]
+  },
+  warning: {
+    DEFAULT: color.yellow[500],
+    hover: color.yellow[400]
+  },
+  info: {
+    DEFAULT: color.indigo[500],
+    hover: color.indigo[400]
   }
 }

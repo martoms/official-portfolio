@@ -28,7 +28,7 @@
       </nav>
       <main
         role="main"
-        class="relative xl:top-[60px] flex flex-1 flex-col order-1 w-full xl:h-landing-xl xl:w-1/2"
+        class="relative xl:order-1 xl:top-[60px] flex flex-1 flex-col order-1 w-full xl:h-landing-xl xl:w-1/2"
       >
         <slot />
       </main>
