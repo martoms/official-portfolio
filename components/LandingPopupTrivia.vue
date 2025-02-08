@@ -82,7 +82,7 @@
 
 <script setup lang="ts">
 import { useStorage, useTimeoutFn } from '@vueuse/core'
-import { shuffle } from 'lodash'
+import { shuffle } from 'lodash-es'
 import { common } from '@/utils/common'
 
 interface Props {
