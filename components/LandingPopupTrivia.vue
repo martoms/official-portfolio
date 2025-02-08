@@ -1,5 +1,5 @@
 <template>
-  <div class="relative p-5 md:p-12 w-full">
+  <div class="relative p-5 pb-10 md:p-12 w-full">
     <VText
       v-if="showPoint && enableScoring"
       class="absolute-center-xy text-5xl font-bold drop-shadow-md animate-points"

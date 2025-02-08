@@ -46,7 +46,7 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     () => {
       ;() => debounceTrivia()
     },
-    timeDiff,
+    5000 - timeDiff.value,
     { immediate: false }
   )
 
@@ -82,12 +82,16 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
       const tokenRes = await $fetch(triviaUriRequestToken)
       const { responseCode, token } = TriviaRequestTokenSchema.parse(tokenRes)
 
+      TRIVIA_TOKEN.value = token
+
       if (responseCode !== 0) codeAlert('TRIVIA_FETCH_ERROR', attribution.value.name)
 
-      timeDiff.value = Date.now() - LAST_TRIVIA_FETCHED.value
-      TRIVIA_TOKEN.value = token
-      if (timeDiff.value > 5000) startWaiting()
-      else debounceTrivia()
+      if (!LAST_TRIVIA_FETCHED.value) debounceTrivia()
+      else {
+        timeDiff.value = Date.now() - LAST_TRIVIA_FETCHED.value
+        if (timeDiff.value < 5000) startWaiting()
+        else debounceTrivia()
+      }
     } else debounceTrivia()
   }
 
