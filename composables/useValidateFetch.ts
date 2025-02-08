@@ -2,13 +2,15 @@ import { APIResponseSchema } from '@/schemas/common'
 
 export const useValidateFetch = async (
   url: string,
-  method: 'GET' | 'POST' | 'PATCH' | 'PUT' = 'GET'
+  method: 'GET' | 'POST' | 'PATCH' | 'PUT' = 'GET',
+  headerOption?: Record<string, string>
 ) => {
   try {
     const res = await $fetch(url, {
       method,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...headerOption
       }
     })
 

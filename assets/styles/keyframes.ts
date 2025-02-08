@@ -39,5 +39,20 @@ export const keyframes = {
       transform: 'translate(-50%, 0)',
       left: '50%'
     }
+  },
+  points: {
+    '0%': {
+      transform: 'scale(0) translate(0%, 0%)',
+      opacity: 0
+    },
+    '20%': {
+      transform: 'scale(1)'
+    },
+    '50%': {
+      opacity: 1
+    },
+    '100%': {
+      transform: 'scale(1) translate(0%, -150%)'
+    }
   }
 }

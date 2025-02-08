@@ -1,19 +1,26 @@
 import { z } from 'zod'
 import { ApiResponse } from '@/utils/ApiResponse'
-import { ContentModesSchema, QuotesSchema, JokeSchema } from '@/schemas/landingContents'
+import {
+  ContentModesSchema,
+  QuotesSchema,
+  JokeSchema,
+  TriviaSchema
+} from '@/schemas/landingContents'
 
 export default defineEventHandler(async (event) => {
   const apiResponse = new ApiResponse(event)
-  const { content } = event.context.params as { content: 'quotes' | 'jokes' }
+  const { content } = event.context.params as { content: 'quotes' | 'jokes' | 'trivia' }
 
   if (!ContentModesSchema.safeParse(content).success) {
     return apiResponse.error(null, 'NOT_FOUND', 404)
   }
 
-  const quotesApi = useRuntimeConfig().quotesUri as ContentMode
-  const jokesApi = useRuntimeConfig().jokesUri as ContentMode
+  const quotesApi = useRuntimeConfig().quotesUri
+  const jokesApi = useRuntimeConfig().jokesUri
+  const triviaApi = useRuntimeConfig().triviaUri
+  const triviaUriRequestToken = event.headers.get('triviatoken')
 
-  let api: ContentMode
+  let api: string
 
   switch (content) {
     case 'quotes':
@@ -21,6 +28,11 @@ export default defineEventHandler(async (event) => {
       break
     case 'jokes':
       api = jokesApi
+      break
+    case 'trivia':
+      typeof triviaUriRequestToken === 'string'
+        ? (api = triviaApi + '&token=' + triviaUriRequestToken)
+        : (api = triviaApi)
       break
   }
 
@@ -37,8 +49,12 @@ export default defineEventHandler(async (event) => {
           const parsedData = JokeSchema.parse(res)
           return apiResponse.sucess(parsedData, 'JOKE_RETRIEVED')
         }
+        case 'trivia': {
+          const parsedData = TriviaSchema.parse(res)
+          return apiResponse.sucess(parsedData.results[0], 'TRIVIA_RETRIEVED')
+        }
       }
-    } catch (e) {
+    } catch {
       return apiResponse.error(null, 'API_PARSE_ERROR')
     }
   } catch {

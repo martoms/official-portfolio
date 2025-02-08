@@ -1,5 +1,5 @@
 <template>
-  <div class="relative top-[-50px] justify-center h-[inherit]">
+  <div class="relative top-[-60px] justify-center h-[inherit]">
     <div
       ref="navSelectorEl"
       class="absolute-center-y h-[80px] md:h-[100px] w-full gradient-x-center"

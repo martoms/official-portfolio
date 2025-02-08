@@ -5,7 +5,7 @@
     </template>
     <div class="relative flex flex-col h-full w-full">
       <!-- Topbar -->
-      <section class="flex-y justify-end h-[60px] w-full xl:fixed xl:top-0 z-10">
+      <section class="flex-y justify-end h-[60px] w-full xl:fixed xl:top-0 z-20">
         <VButton class="flex-xy h-16 w-16 text-white" @click="showContentModeSelection = true">
           <VIcon name="icon-gear" size="3xl" class="text-shadow" />
         </VButton>

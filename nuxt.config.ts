@@ -21,7 +21,10 @@ export default defineNuxtConfig({
     mongodbUri: process.env.MONGODB_URI,
     quotesUri: process.env.QUOTES_URI,
     jokesUri: process.env.JOKES_URI,
-    triviaUri: process.env.TRIVIA_URI
+    triviaUri: process.env.TRIVIA_URI,
+    public: {
+      triviaUriRequestToken: process.env.TRIVIA_URI_REQUEST_TOKEN
+    }
   },
   mongoose: {
     modelsDir: 'models',
