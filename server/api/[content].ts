@@ -43,15 +43,23 @@ export default defineEventHandler(async (event) => {
       switch (content) {
         case 'quotes': {
           const parsedData = z.array(QuotesSchema).parse(res)
-          return apiResponse.sucess(parsedData[0], 'QUOTE_RETRIEVED')
+          return apiResponse.success(parsedData[0], 'QUOTE_RETRIEVED')
         }
         case 'jokes': {
           const parsedData = JokeSchema.parse(res)
-          return apiResponse.sucess(parsedData, 'JOKE_RETRIEVED')
+          return apiResponse.success(parsedData, 'JOKE_RETRIEVED')
         }
         case 'trivia': {
           const parsedData = TriviaSchema.parse(res)
-          return apiResponse.sucess(parsedData.results[0], 'TRIVIA_RETRIEVED')
+          switch (parsedData.responseCode) {
+            case 0:
+              return apiResponse.success(parsedData.results[0], 'TRIVIA_RETRIEVED')
+            case 3:
+              return apiResponse.success(parsedData.results[0], 'TOKEN_EXPIRED')
+            default:
+              apiResponse.error(parsedData.results[0], 'TRIVIA_FETCH_ERROR')
+          }
+          return apiResponse.success(parsedData.results[0], 'TRIVIA_RETRIEVED')
         }
       }
     } catch {

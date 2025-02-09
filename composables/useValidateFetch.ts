@@ -18,6 +18,9 @@ export const useValidateFetch = async (
 
     return { data, code }
   } catch (e) {
+    if (e instanceof Error) {
+      if (e.message.includes('404 Not Found')) return { data: null, code: 'NOT_FOUND', error: e }
+    }
     return { data: null, code: 'API_FETCH_ERROR', error: e }
   }
 }
