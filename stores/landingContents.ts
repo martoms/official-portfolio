@@ -11,8 +11,8 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
   const content = ref<LandingContent | null>(null)
 
   const triviaUriRequestToken = useRuntimeConfig().public.triviaUriRequestToken
-  const TRIVIA_TOKEN = useStorage<string>('TRIVIA_TOKEN', '')
-  const LAST_TRIVIA_FETCHED = useStorage<number>('LAST_TRIVIA_FETCHED', 0)
+  const triviaToken = useStorage<string>('triviaToken', '')
+  const lastTriviaFetched = useStorage<number>('lastTriviaFetched', 0)
   const timeDiff = ref(0)
 
   const attribution = computed(() => {
@@ -40,13 +40,16 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
 
   const errorCodes = ['QUOTE_NOT_FOUND', 'API_FETCH_ERROR']
 
-  const debounceTrivia = useDebounceFn(() => fetchTrivia(), 5000)
+  const debounceTrivia = useDebounceFn(
+    () => fetchContent('GET', { triviaToken: triviaToken.value }),
+    5000
+  )
 
   const { start: startWaiting } = useTimeoutFn(
     () => {
       ;() => debounceTrivia()
     },
-    5000 - timeDiff.value,
+    timeDiff,
     { immediate: false }
   )
 
@@ -61,13 +64,21 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     method: 'GET' | 'POST' | 'PATCH' | 'PUT' = 'GET',
     headerOption?: Record<string, string>
   ) {
+    isPending.value = true
+
     const { data, code } = await useValidateFetch(`/api/${contentMode.value}`, method, headerOption)
+
+    if (code === 'TOKEN_EXPIRED') {
+      const { responseCode } = await getTriviaToken()
+      responseCode === 0 && fetchContent()
+    }
 
     if (errorCodes.includes(code)) codeAlert(code)
     else if (code === 'API_PARSE_ERROR') codeAlert(code, attribution.value.name)
 
     try {
       content.value = LandingContentSchema.parse(data)
+      lastTriviaFetched.value = Date.now()
     } catch {
       codeAlert(
         `There seems to be a problem fetching data from ${attribution.value.name}. Please try other options.`
@@ -78,26 +89,25 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
   }
 
   async function getTrivia() {
-    if (!TRIVIA_TOKEN.value) {
-      const tokenRes = await $fetch(triviaUriRequestToken)
-      const { responseCode, token } = TriviaRequestTokenSchema.parse(tokenRes)
-
-      TRIVIA_TOKEN.value = token
-
-      if (responseCode !== 0) codeAlert('TRIVIA_FETCH_ERROR', attribution.value.name)
-
-      if (!LAST_TRIVIA_FETCHED.value) debounceTrivia()
-      else {
-        timeDiff.value = Date.now() - LAST_TRIVIA_FETCHED.value
-        if (timeDiff.value < 5000) startWaiting()
-        else debounceTrivia()
+    if (!triviaToken.value) {
+      await getTriviaToken()
+      timeDiff.value = Date.now() - lastTriviaFetched.value
+      if (timeDiff.value > 5000) startWaiting()
+      else debounceTrivia()
+    } else {
+      timeDiff.value = Date.now() - lastTriviaFetched.value
+      if (timeDiff.value > 1000 * 60 * 60 * 6) {
       }
-    } else debounceTrivia()
+      debounceTrivia()
+    }
   }
 
-  function fetchTrivia() {
-    LAST_TRIVIA_FETCHED.value = Date.now()
-    fetchContent('GET', { triviaToken: TRIVIA_TOKEN.value })
+  async function getTriviaToken() {
+    const tokenRes = await $fetch(triviaUriRequestToken)
+    const { responseCode, token } = TriviaRequestTokenSchema.parse(tokenRes)
+    triviaToken.value = token
+    if (responseCode !== 0) codeAlert('TRIVIA_FETCH_ERROR', attribution.value.name)
+    return { responseCode }
   }
 
   return {

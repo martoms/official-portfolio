@@ -1,7 +1,7 @@
 export class ApiResponse {
   constructor(private event: any) {}
 
-  sucess(data: any, code: string, statusCode: number = 200) {
+  success(data: any, code: string, statusCode: number = 200) {
     setResponseStatus(this.event, statusCode)
     return { data, code }
   }

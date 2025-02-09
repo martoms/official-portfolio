@@ -20,23 +20,35 @@
 
     <div
       v-if="enableScoring"
-      class="flex-y justify-between mb-5 p-3 border-solid border border-slate-200 rounded-md"
+      class="mb-5 p-3 text-primary border-solid border border-slate-200 rounded-md"
     >
-      <!-- Score -->
-      <div class="flex-y gap-3 w-full text-primary">
-        <VText class="flex-y gap-1">
-          <VIcon name="icon-check-solid" class="text-success" />
-          {{ correct }}
-        </VText>
-        <VText class="flex-y gap-1">
-          <VIcon name="icon-wrong-solid" class="text-danger" />
-          {{ wrong }}
-        </VText>
+      <div class="flex-y justify-between">
+        <VText class="text-xs uppercase">Answers</VText>
+        <VText class="text-xs uppercase">Points</VText>
+        <VText class="text-xs uppercase">Accuracy</VText>
       </div>
-      <!-- Points -->
-      <VText class="w-full text-center">{{ points }}</VText>
-      <!-- Percentage -->
-      <div class="w-full text-right">{{ percent }}%</div>
+      <div class="flex-y justify-between">
+        <!-- Score -->
+        <div class="flex-y gap-3 w-full">
+          <VText class="flex-y gap-1">
+            <VIcon name="icon-check-solid" class="text-success" />
+            {{ correct }}
+          </VText>
+          <VText class="flex-y gap-1">
+            <VIcon name="icon-wrong-solid" class="text-danger" />
+            {{ wrong }}
+          </VText>
+        </div>
+        <!-- Points -->
+        <VText class="w-full text-center">{{ points }}</VText>
+        <!-- Percentage -->
+        <div
+          class="w-full text-right"
+          :class="Number(percent) < 75 ? 'text-danger' : Number(percent) > 90 ? 'text-success' : ''"
+        >
+          {{ percent }}%
+        </div>
+      </div>
     </div>
 
     <div class="text-sm text-center">
@@ -148,6 +160,8 @@ const getAnswerStyle = (option: string) => {
 const handleAnswer = (option: string) => {
   answer.value = option
   hasAnswered.value = true
+
+  if (!props.enableScoring) return
   if (answer.value === props.content?.correctAnswer) {
     correct.value++
     points.value += point.value
