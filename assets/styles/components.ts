@@ -23,6 +23,7 @@ export const components = {
     zIndex: '10',
     color: colors.white.DEFAULT,
     cursor: 'pointer',
-    textShadow: `0px 0px 10px ${colors.primary.DEFAULT}`
+    textShadow: `0px 0px 10px ${colors.primary.DEFAULT}`,
+    transformStyle: 'preserve-3d'
   }
 }

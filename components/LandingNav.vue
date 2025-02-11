@@ -62,17 +62,24 @@ onMounted(() => {
 
 function updateNavItemStyle(el: HTMLElement | null) {
   if (!el) return
+
   const { top: elTop, bottom: elBottom } = el.getBoundingClientRect()
   const threshold = 50
   let diff = 0
+  let rotation = 0
+
   if (elTop < selectorTop.value) {
     diff = selectorTop.value - elTop
+    rotation = (diff / threshold) * 90
   } else if (elBottom > selectorBottom.value) {
     diff = elBottom - selectorBottom.value
+    rotation = -(diff / threshold) * 90
   }
+
   const proximity = (threshold - diff) / threshold + 0.9
   const ratio = proximity > 0 ? proximity : 0
-  el.style.transform = `scale(${ratio})`
+
+  el.style.transform = `scale(${ratio}) rotateX(${rotation}deg)`
   el.style.opacity = `${ratio}`
 }
 </script>
