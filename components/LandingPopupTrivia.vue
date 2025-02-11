@@ -143,7 +143,9 @@ const question = computed(() => {
 
 const options = computed(() => {
   if (!Array.isArray(props.content?.incorrectAnswers)) return []
-  return shuffle([...props.content?.incorrectAnswers, props.content?.correctAnswer])
+  return shuffle([...props.content?.incorrectAnswers, props.content?.correctAnswer]).map(
+    (i) => decodeText(i) || ''
+  )
 })
 
 const getAnswerStyle = (option: string) => {

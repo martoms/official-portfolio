@@ -12,7 +12,7 @@
         <div
           v-if="showContentModeSelection"
           ref="contentModeEl"
-          class="fixed top-2 p-5 w-[calc(100%-20px)] md:w-1/3 h-[150px] left-1/2 -translate-x-1/2 animate-dialogue bg-white/95 shadow-lg rounded-md"
+          class="fixed top-2 p-5 w-[calc(100%-20px)] md:w-1/3 left-1/2 -translate-x-1/2 animate-dialogue bg-white/95 shadow-lg rounded-md"
         >
           <VText class="text-primary">Choose what you want me to say:</VText>
           <div class="flex gap-3 mt-5">
