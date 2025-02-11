@@ -3,12 +3,17 @@ import { useStorage, useTimeoutFn, useDebounceFn } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { useValidateFetch } from '@/composables/useValidateFetch'
 import { codeAlert } from '@/utils/alerts'
-import { LandingContentSchema, TriviaRequestTokenSchema } from '@/schemas/landingContents'
+import {
+  LandingContentSchema,
+  TriviaRequestTokenSchema,
+  TriviaListSchema
+} from '@/schemas/landingContents'
 
 export const useLandingContentsStore = defineStore('landingContents', () => {
   const contentMode = useStorage<'quotes' | 'jokes' | 'trivia'>('contentMode', 'quotes')
   const isPending = ref(false)
-  const content = ref<LandingContent | null>(null)
+  const content = ref<LandingContent | Trivia | null>(null)
+  const triviaList = ref<Array<Trivia>>([])
 
   const triviaUriRequestToken = useRuntimeConfig().public.triviaUriRequestToken
   const triviaToken = useStorage<string>('triviaToken', '')
@@ -53,10 +58,17 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     { immediate: false }
   )
 
+  const { start: startNextTrivia } = useTimeoutFn(
+    () => {
+      content.value = triviaList.value.pop() as Trivia
+    },
+    1000,
+    { immediate: false }
+  )
+
   const getContent = () => {
     isPending.value = true
     content.value = null
-
     contentMode.value !== 'trivia' ? fetchContent() : getTrivia()
   }
 
@@ -77,8 +89,13 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     else if (code === 'API_PARSE_ERROR') codeAlert(code, attribution.value.name)
 
     try {
-      content.value = LandingContentSchema.parse(data)
-      lastTriviaFetched.value = Date.now()
+      if (contentMode.value !== 'trivia') {
+        content.value = LandingContentSchema.parse(data)
+      } else {
+        triviaList.value = TriviaListSchema.parse(data)
+        lastTriviaFetched.value = Date.now()
+        getTriviaFromList()
+      }
     } catch {
       codeAlert(
         `There seems to be a problem fetching data from ${attribution.value.name}. Please try other options.`
@@ -89,15 +106,14 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
   }
 
   async function getTrivia() {
-    if (!triviaToken.value) {
+    if (triviaList.value.length > 0) getTriviaFromList()
+    else if (!triviaToken.value) {
       await getTriviaToken()
-      timeDiff.value = Date.now() - lastTriviaFetched.value
-      if (timeDiff.value > 5000) startWaiting()
-      else debounceTrivia()
+      debounceTrivia()
     } else {
       timeDiff.value = Date.now() - lastTriviaFetched.value
-      if (timeDiff.value > 1000 * 60 * 60 * 6) {
-      }
+      if (timeDiff.value > 1000 * 60 * 60 * 6) await getTriviaToken()
+      else if (timeDiff.value > 5000) startWaiting()
       debounceTrivia()
     }
   }
@@ -108,6 +124,11 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     triviaToken.value = token
     if (responseCode !== 0) codeAlert('TRIVIA_FETCH_ERROR', attribution.value.name)
     return { responseCode }
+  }
+
+  function getTriviaFromList() {
+    content.value = null
+    startNextTrivia()
   }
 
   return {
