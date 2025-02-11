@@ -53,9 +53,9 @@ export default defineEventHandler(async (event) => {
           const parsedData = TriviaSchema.parse(res)
           switch (parsedData.responseCode) {
             case 0:
-              return apiResponse.success(parsedData.results[0], 'TRIVIA_RETRIEVED')
+              return apiResponse.success(parsedData.results, 'TRIVIA_RETRIEVED')
             case 3:
-              return apiResponse.success(parsedData.results[0], 'TOKEN_EXPIRED')
+              return apiResponse.success(parsedData.results, 'TOKEN_EXPIRED')
             default:
               apiResponse.error(parsedData.results[0], 'TRIVIA_FETCH_ERROR')
           }

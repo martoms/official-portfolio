@@ -72,4 +72,5 @@ export const TriviaSchema = z
   }))
 
 // Union Schema
-export const LandingContentSchema = z.union([QuotesSchema, JokeSchema, TriviaFinalSchema])
+export const LandingContentSchema = z.union([QuotesSchema, JokeSchema])
+export const TriviaListSchema = z.array(TriviaFinalSchema)
