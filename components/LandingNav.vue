@@ -77,7 +77,7 @@ function updateNavItemStyle(el: HTMLElement | null) {
   }
 
   const proximity = (threshold - diff) / threshold + 0.9
-  const ratio = proximity > 0 ? proximity : 0
+  const ratio = proximity > 0 ? proximity - 0.2 : 0
 
   el.style.transform = `scale(${ratio}) rotateX(${rotation}deg)`
   el.style.opacity = `${ratio}`

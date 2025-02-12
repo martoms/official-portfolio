@@ -54,5 +54,13 @@ export const keyframes = {
     '100%': {
       transform: 'scale(1) translate(0%, -150%)'
     }
+  },
+  shimmer: {
+    '0%': {
+      backgroundPosition: '200% 0'
+    },
+    '100%': {
+      backgroundPosition: '-200% 0'
+    }
   }
 }

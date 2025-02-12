@@ -35,6 +35,10 @@ export const utilities = {
   '.gradient-x-center': {
     backgroundImage: `linear-gradient(to left, rgba(0,0,0,0), ${colors.primary.DEFAULT}, rgba(0,0,0,0))`
   },
+  '.mask-gradient-y': {
+    '-webkit-maskImage': 'linear-gradient(black 60%, transparent)',
+    maskImage: 'linear-gradient(black 60%, transparent)'
+  },
   // transition
   '.transition-smooth': {
     transition: 'all 1s ease-in-out'

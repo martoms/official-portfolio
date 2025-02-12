@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src :alt class="h-full w-auto" />
+    <img :src :alt class="h-full w-auto object-cover" />
   </div>
 </template>
 

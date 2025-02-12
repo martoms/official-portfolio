@@ -1,24 +1,18 @@
 <template>
   <div ref="profileEl" class="relative w-screen h-screen">
-    <!-- container 1 -->
-    <div class="fixed top-0 w-full h-full bg-yellow-100">
-      <div class="absolute top-0 left-0 w-full h-[300px] bg-red-300"></div>
-      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 bg-blue-200 overflow-auto">
-        <div class="h-[calc(100vh+300px)] bg-green-200"></div>
-      </div>
-    </div>
+    <ProfileAboutme />
     <!-- container 2 -->
-    <div ref="container2" class="fixed w-full h-full bg-yellow-100">
+    <div ref="container2" class="fixed w-full h-full landing">
       <div class="absolute top-0 left-0 w-full h-[300px] bg-blue-300"></div>
-      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 bg-blue-200 overflow-auto">
-        <div class="h-[calc(100vh+300px)] bg-green-200"></div>
+      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 overflow-auto">
+        <div class="h-[calc(100vh+300px)]"></div>
       </div>
     </div>
     <!-- container 3 -->
-    <div ref="container3" class="relative top-[200vh] w-full h-full bg-yellow-100">
+    <div ref="container3" class="relative top-[200vh] w-full h-full landing">
       <div class="absolute top-0 left-0 w-full h-[300px] bg-slate-300"></div>
-      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 bg-blue-200 overflow-auto">
-        <div class="h-[calc(100vh+300px)] bg-green-200"></div>
+      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 overflow-auto">
+        <div class="h-[calc(100vh+300px)]"></div>
       </div>
     </div>
   </div>

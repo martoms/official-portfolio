@@ -7,5 +7,6 @@ export const animation = {
   callout: 'callout 1s ease-in-out',
   rotate: 'rotate 0.5s ease-in-out',
   dialogue: 'dialogue 0.5s ease-in-out',
-  points: 'points 2s ease-in-out'
+  points: 'points 2s ease-in-out',
+  shimmer: 'shimmer 1.5s infinite linear'
 }

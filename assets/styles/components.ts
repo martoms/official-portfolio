@@ -1,4 +1,5 @@
 import { colors } from './colors'
+import color from 'tailwindcss/colors'
 
 export const components = {
   '.landing': {
@@ -25,5 +26,11 @@ export const components = {
     cursor: 'pointer',
     textShadow: `0px 0px 10px ${colors.primary.DEFAULT}`,
     transformStyle: 'preserve-3d'
+  },
+  '.image-placeholder': {
+    width: '100%',
+    height: '100%',
+    background: `linear-gradient(90deg, ${color.neutral[300]} 25%, ${color.neutral[100]} 50%, ${color.neutral[300]} 75%)`,
+    backgroundSize: '200% 100%'
   }
 }
