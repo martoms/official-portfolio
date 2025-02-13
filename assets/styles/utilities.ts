@@ -43,6 +43,9 @@ export const utilities = {
   '.transition-smooth': {
     transition: 'all 1s ease-in-out'
   },
+  '.transition-smooth-300': {
+    transition: 'all 0.3s ease-in-out'
+  },
   // scrollbar
   '.no-scrollbar': {
     '-ms-overflow-style': 'none', // IE and Edge
