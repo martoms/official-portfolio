@@ -1,13 +1,8 @@
 <template>
   <div ref="profileEl" class="relative w-screen h-screen">
     <ProfileAboutme />
-    <!-- container 2 -->
-    <div ref="container2" class="fixed w-full h-full landing transition-smooth-300">
-      <div class="absolute top-0 left-0 w-full h-[300px] bg-blue-300"></div>
-      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 overflow-auto">
-        <div class="h-[calc(100vh+300px)]"></div>
-      </div>
-    </div>
+    <ProfileSkills @assign="skillsSectionEl = $event" />
+
     <!-- container 3 -->
     <div ref="container3" class="fixed w-full h-full landing transition-smooth-300">
       <div class="absolute top-0 left-0 w-full h-[300px] bg-slate-300"></div>
@@ -35,8 +30,10 @@
 import { isClient, useScroll, useElementBounding } from '@vueuse/core'
 
 const profileEl = ref()
-const container2 = ref()
+const skillsSectionEl = ref()
 const container3 = ref()
+
+const container = ref()
 
 const { y: scrollY, isScrolling } = useScroll(window)
 const { height } = useElementBounding(profileEl)
@@ -68,7 +65,7 @@ onMounted(() => {
       scrollY,
       () => {
         if (!profileEl.value) return
-        updateElTop(container2.value, 1)
+        updateElTop(skillsSectionEl.value, 1)
         updateElTop(container3.value, 2)
       },
       { immediate: true }
@@ -78,7 +75,7 @@ onMounted(() => {
       isScrolling,
       () => {
         if (!isScrolling.value) {
-          snap(container2.value)
+          snap(skillsSectionEl.value)
           snap(container3.value)
         }
       },

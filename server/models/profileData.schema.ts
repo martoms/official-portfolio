@@ -1,5 +1,5 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
-import { current } from 'tailwindcss/colors'
+import { SkillSchema } from './SkillSchema.schema'
 
 export const ProfileDataSchema = defineMongooseModel({
   name: 'ProfileData',
@@ -25,6 +25,18 @@ export const ProfileDataSchema = defineMongooseModel({
     },
     intro: {
       type: String
+    },
+    backend: {
+      type: [SkillSchema]
+    },
+    frontend: {
+      type: [SkillSchema]
+    },
+    graphicDesign: {
+      type: [SkillSchema]
+    },
+    others: {
+      type: [SkillSchema]
     }
   },
   options: {

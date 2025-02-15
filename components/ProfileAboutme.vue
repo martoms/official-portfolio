@@ -64,6 +64,8 @@
 </template>
 
 <script lang="ts" setup>
+import { AboutMeSchema } from '@/schemas/profileData'
+
 const { profileData } = storeToRefs(useProfileDataStore())
 const { retrieve } = useProfileDataStore()
 
@@ -84,7 +86,10 @@ const links = [
   }
 ]
 
-const aboutMe = computed(() => profileData.value.find((i) => i.section === 'aboutMe'))
+const aboutMe = computed(() => {
+  const parsedData = AboutMeSchema.safeParse(profileData.value.find((i) => i.section === 'aboutMe'))
+  return parsedData.success ? parsedData.data : undefined
+})
 const intro = computed(() => aboutMe.value?.intro.split('\n') || [])
 const clamp = computed(() => (!readMore.value ? 'line-clamp-3' : ''))
 
