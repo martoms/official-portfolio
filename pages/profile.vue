@@ -1,10 +1,10 @@
 <template>
-  <div ref="profileEl" class="relative w-screen h-screen">
+  <main ref="profileEl" class="relative w-screen h-screen">
     <ProfileAboutme />
     <ProfileSkills @assign="skillsSectionEl = $event" />
     <ProfileAwards @assign="awardsSectionEl = $event" />
-
     <div class="relative top-[200vh] -z-10 w-full h-full"></div>
+    <NavBurger @scrollY="scrollY = $event" />
     <VArrow
       v-if="scrollY >= height"
       direction="up"
@@ -17,7 +17,7 @@
       class="fixed left-1/2 -translate-x-1/2 bottom-5 animate-fade-in"
       @click="slideNext()"
     />
-  </div>
+  </main>
 </template>
 
 <script lang="ts" setup>

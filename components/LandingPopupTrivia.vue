@@ -95,7 +95,7 @@
 <script setup lang="ts">
 import { useStorage, useTimeoutFn } from '@vueuse/core'
 import { shuffle } from 'lodash-es'
-import { common } from '@/utils/common'
+import { commonUtils } from '@/utils/common'
 
 interface Props {
   content: Trivia | null
@@ -116,7 +116,7 @@ const correct = useStorage('correct', 0)
 const wrong = useStorage('wrong', 0)
 const points = useStorage('points', 0)
 
-const { decodeText } = common()
+const { decodeText } = commonUtils()
 const { start: startHidePoint } = useTimeoutFn(() => (showPoint.value = false), 2000)
 
 const point = computed(() => {
