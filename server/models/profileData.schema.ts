@@ -1,5 +1,6 @@
 import { defineMongooseModel } from '#nuxt/mongoose'
-import { SkillSchema } from './SkillSchema.schema'
+import { SkillSchema } from './skill.schema'
+import { CertificateSchema } from './certificate.schema'
 
 export const ProfileDataSchema = defineMongooseModel({
   name: 'ProfileData',
@@ -16,6 +17,9 @@ export const ProfileDataSchema = defineMongooseModel({
     },
     currentPosition: {
       type: String
+    },
+    start: {
+      type: Number
     },
     currentCompany: {
       type: String
@@ -37,6 +41,9 @@ export const ProfileDataSchema = defineMongooseModel({
     },
     others: {
       type: [SkillSchema]
+    },
+    certificates: {
+      type: [CertificateSchema]
     }
   },
   options: {

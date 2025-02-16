@@ -2,15 +2,9 @@
   <div ref="profileEl" class="relative w-screen h-screen">
     <ProfileAboutme />
     <ProfileSkills @assign="skillsSectionEl = $event" />
+    <ProfileAwards @assign="awardsSectionEl = $event" />
 
-    <!-- container 3 -->
-    <div ref="container3" class="fixed w-full h-full landing transition-smooth-300">
-      <div class="absolute top-0 left-0 w-full h-[300px] bg-slate-300"></div>
-      <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 overflow-auto">
-        <div class="h-[calc(100vh+300px)]"></div>
-      </div>
-    </div>
-    <div class="relative top-[200vh] w-full h-full"></div>
+    <div class="relative top-[200vh] -z-10 w-full h-full"></div>
     <VArrow
       v-if="scrollY >= height"
       direction="up"
@@ -31,9 +25,7 @@ import { isClient, useScroll, useElementBounding } from '@vueuse/core'
 
 const profileEl = ref()
 const skillsSectionEl = ref()
-const container3 = ref()
-
-const container = ref()
+const awardsSectionEl = ref()
 
 const { y: scrollY, isScrolling } = useScroll(window)
 const { height } = useElementBounding(profileEl)
@@ -66,7 +58,15 @@ onMounted(() => {
       () => {
         if (!profileEl.value) return
         updateElTop(skillsSectionEl.value, 1)
-        updateElTop(container3.value, 2)
+        updateElTop(awardsSectionEl.value, 2)
+
+        if (scrollY.value === 0) {
+          useHead({ title: 'Marjohn | About Me' })
+        } else if (scrollY.value === height.value) {
+          useHead({ title: 'Marjohn | Skills' })
+        } else if (scrollY.value === height.value * 2) {
+          useHead({ title: 'Marjohn | Awards and Certificates' })
+        }
       },
       { immediate: true }
     )
@@ -76,7 +76,7 @@ onMounted(() => {
       () => {
         if (!isScrolling.value) {
           snap(skillsSectionEl.value)
-          snap(container3.value)
+          snap(awardsSectionEl.value)
         }
       },
       { immediate: true }

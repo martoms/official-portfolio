@@ -1,10 +1,11 @@
 import { z } from 'zod'
 
 export const AboutMeSchema = z.object({
-  section: z.string(),
+  section: z.literal('aboutMe'),
   img: z.string().url().nullish(),
   name: z.string(),
   currentPosition: z.string(),
+  start: z.number(),
   currentCompany: z.string(),
   cv: z.string(),
   intro: z.string()
@@ -17,11 +18,24 @@ export const SkillSchema = z.object({
 })
 
 export const SkillsSchema = z.object({
-  section: z.string(),
+  section: z.literal('skills'),
   backend: z.array(SkillSchema),
   frontend: z.array(SkillSchema),
   graphicDesign: z.array(SkillSchema),
   others: z.array(SkillSchema)
 })
 
-export const ProfileDataSchema = z.array(z.union([AboutMeSchema, SkillsSchema]))
+export const CertificateSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  img: z.string(),
+  url: z.string(),
+  order: z.number()
+})
+
+export const AwardsSchema = z.object({
+  section: z.literal('awards'),
+  certificates: z.array(CertificateSchema)
+})
+
+export const ProfileDataSchema = z.array(z.union([AboutMeSchema, SkillsSchema, AwardsSchema]))

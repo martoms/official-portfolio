@@ -1,7 +1,11 @@
 <template>
-  <div ref="skillsSectionEl" class="fixed w-full h-full landing transition-smooth-300">
+  <section
+    ref="skillsSectionEl"
+    id="skills"
+    class="fixed w-full h-full landing transition-smooth-300"
+  >
     <div
-      class="absolute top-0 left-0 flex items-end w-full h-[300px] pr-12 bg-blue-300 mask-gradient-y"
+      class="absolute top-0 left-0 flex items-end w-full h-[300px] pr-10 bg-sky-300 mask-gradient-y"
     >
       <VText
         class="relative bottom-[100px] w-full text-right text-5xl leading-[3rem] font-black text-primary-background"
@@ -16,7 +20,7 @@
         <ProfileSkillsCategory :category="skill.name" :skills="skill.skills" />
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts" setup>

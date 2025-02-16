@@ -1,6 +1,5 @@
 <template>
-  <!-- About Me -->
-  <section class="fixed top-0 w-full h-full landing">
+  <section id="about-me" class="fixed top-0 w-full h-full landing">
     <div
       class="absolute top-0 left-0 w-full h-[400px] image-placeholder animate-shimmer mask-gradient-y"
     >
@@ -19,8 +18,15 @@
         </VText>
         <!-- Current Position -->
         <div>
-          <VText class="text-primary font-semibold leading-5">{{ aboutMe?.currentPosition }}</VText>
-          <VText class="text-primary">{{ aboutMe?.currentCompany }}</VText>
+          <VText class="text-primary font-semibold leading-5">
+            {{ aboutMe?.currentPosition }} ·
+            <VText tag="span" class="font-normal text-sm">
+              {{ getDuration(aboutMe?.start || 0) }}
+            </VText>
+          </VText>
+          <VText class="text-primary">
+            {{ aboutMe?.currentCompany }}
+          </VText>
         </div>
         <!-- Links -->
         <div class="flex-y gap-3 py-8 text-primary">
@@ -65,9 +71,12 @@
 
 <script lang="ts" setup>
 import { AboutMeSchema } from '@/schemas/profileData'
+import { commonUtils } from '@/utils/common'
 
 const { profileData } = storeToRefs(useProfileDataStore())
 const { retrieve } = useProfileDataStore()
+
+const { openLinkTo, getDuration } = commonUtils()
 
 const readMore = ref(false)
 
@@ -94,7 +103,6 @@ const intro = computed(() => aboutMe.value?.intro.split('\n') || [])
 const clamp = computed(() => (!readMore.value ? 'line-clamp-3' : ''))
 
 const hide = (index: number) => (index > 0 && !readMore.value ? 'hidden' : '')
-const openLinkTo = (url: string) => window.open(url, '_blank')
 
 onBeforeMount(() => !profileData.value.length && retrieve())
 </script>

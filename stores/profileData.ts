@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { defineStore } from 'pinia'
 import { useValidateFetch } from '@/composables/useValidateFetch'
 import { ProfileDataSchema } from '@/schemas/profileData'
