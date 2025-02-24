@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ApiResponse } from '@/utils/ApiResponse'
+import { ApiResponse, handleError } from '@/utils/ApiResponse'
 import {
   ContentModesSchema,
   QuotesSchema,
@@ -39,33 +39,29 @@ export default defineEventHandler(async (event) => {
   try {
     const res = await $fetch(api)
 
-    try {
-      switch (content) {
-        case 'quotes': {
-          const parsedData = z.array(QuotesSchema).parse(res)
-          return apiResponse.success(parsedData[0], 'QUOTE_RETRIEVED')
-        }
-        case 'jokes': {
-          const parsedData = JokeSchema.parse(res)
-          return apiResponse.success(parsedData, 'JOKE_RETRIEVED')
-        }
-        case 'trivia': {
-          const parsedData = TriviaSchema.parse(res)
-          switch (parsedData.responseCode) {
-            case 0:
-              return apiResponse.success(parsedData.results, 'TRIVIA_RETRIEVED')
-            case 3:
-              return apiResponse.success(parsedData.results, 'TOKEN_EXPIRED')
-            default:
-              apiResponse.error(parsedData.results[0], 'TRIVIA_FETCH_ERROR')
-          }
-          return apiResponse.success(parsedData.results[0], 'TRIVIA_RETRIEVED')
-        }
+    switch (content) {
+      case 'quotes': {
+        const parsedData = z.array(QuotesSchema).parse(res)
+        return apiResponse.success(parsedData[0], 'QUOTE_RETRIEVED')
       }
-    } catch {
-      return apiResponse.error(null, 'API_PARSE_ERROR')
+      case 'jokes': {
+        const parsedData = JokeSchema.parse(res)
+        return apiResponse.success(parsedData, 'JOKE_RETRIEVED')
+      }
+      case 'trivia': {
+        const parsedData = TriviaSchema.parse(res)
+        switch (parsedData.responseCode) {
+          case 0:
+            return apiResponse.success(parsedData.results, 'TRIVIA_RETRIEVED')
+          case 3:
+            return apiResponse.success(parsedData.results, 'TOKEN_EXPIRED')
+          default:
+            apiResponse.error(parsedData.results[0], 'TRIVIA_FETCH_ERROR')
+        }
+        return apiResponse.success(parsedData.results[0], 'TRIVIA_RETRIEVED')
+      }
     }
-  } catch {
-    return apiResponse.error(null, 'NOT_FOUND', 404)
+  } catch (e) {
+    return handleError(e, event)
   }
 })

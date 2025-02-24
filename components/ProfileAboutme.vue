@@ -74,7 +74,6 @@ import { AboutMeSchema } from '@/schemas/profileData'
 import { commonUtils } from '@/utils/common'
 
 const { profileData } = storeToRefs(useProfileDataStore())
-const { retrieve } = useProfileDataStore()
 
 const { openLinkTo, getDuration } = commonUtils()
 
@@ -103,6 +102,4 @@ const intro = computed(() => aboutMe.value?.intro.split('\n') || [])
 const clamp = computed(() => (!readMore.value ? 'line-clamp-3' : ''))
 
 const hide = (index: number) => (index > 0 && !readMore.value ? 'hidden' : '')
-
-onBeforeMount(() => !profileData.value.length && retrieve())
 </script>

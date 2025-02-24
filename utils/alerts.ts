@@ -9,5 +9,11 @@ export const codeAlert = (code: string, data?: string) => {
     case 'TRIVIA_FETCH_ERROR':
       alert('There seems to be a problem fetching trivia. Please try again later.')
       return
+    case 'UNAUTHORIZED':
+      alert('Invalid Credentials')
+      return
+    default:
+      alert('There seems to be an unexpected error. Please try again later.')
+      return
   }
 }

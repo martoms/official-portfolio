@@ -22,6 +22,10 @@
 
 <script lang="ts" setup>
 import { isClient, useScroll, useElementBounding } from '@vueuse/core'
+import { ProfileDataSchema } from '@/schemas/profileData'
+
+const profileDataStore = useProfileDataStore()
+const { profileData } = storeToRefs(profileDataStore)
 
 const profileEl = ref()
 const skillsSectionEl = ref()
@@ -50,6 +54,20 @@ const snap = (el: HTMLElement | null) => {
   if (elTop < threshold) el.style.top = '0px'
   else if (elTop > threshold && elTop < height.value) el.style.top = `${height.value}px`
 }
+
+const fetchProfileData = async () => {
+  try {
+    const { data, code } = await useValidateFetch('api/data/profile')
+
+    if (code === 'NOT_FOUND') console.log('profileData:', code)
+    const parsedProfileData = ProfileDataSchema.parse(data)
+    profileDataStore.setProfileData(parsedProfileData)
+  } catch (e) {
+    if (e instanceof Error) console.log('error', e.message)
+  }
+}
+
+onBeforeMount(() => !profileData.value.length && fetchProfileData())
 
 onMounted(() => {
   if (isClient) {

@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  imports: {
+    autoImport: true
+  },
   app: {
     head: {
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/marjohn.ico' }]

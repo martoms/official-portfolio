@@ -22,7 +22,7 @@
               btn-style="full"
               class="bg-secondary hover:bg-secondary-hover text-primary-background"
               :class="{ '!bg-primary hover:!bg-primary-hover': contentMode === mode }"
-              @click="contentMode = mode"
+              @click="landingContents.setContentMode(mode)"
             >
               {{ mode === 'quotes' ? 'Quotes' : mode === 'jokes' ? 'Jokes' : 'Trivia' }}
             </VButton>
@@ -103,8 +103,9 @@ import LandingNav from '@/components/LandingNav.vue'
 
 useHead({ title: 'Marjohn | Home' })
 
-const { isPending, content, contentMode } = storeToRefs(useLandingContentsStore())
-const { getContent } = useLandingContentsStore()
+const landingContents = useLandingContentsStore()
+const { isPending, content, contentMode } = storeToRefs(landingContents)
+const { getContent } = useLandingContents()
 
 const contentModeEl = ref()
 const currentBg = ref('dev-bg')
