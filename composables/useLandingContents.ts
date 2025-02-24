@@ -54,7 +54,10 @@ export const useLandingContents = () => {
   ) {
     landingContents.setIsPending(true)
 
-    const { data, code } = await useValidateFetch(`/api/${contentMode.value}`, method, headerOption)
+    const { data, code } = await useValidateFetch(`/api/${contentMode.value}`, undefined, {
+      method,
+      headerOption
+    })
 
     if (code === 'TOKEN_EXPIRED') {
       const { responseCode } = await getTriviaToken()

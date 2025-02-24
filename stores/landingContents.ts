@@ -1,5 +1,4 @@
 import { useStorage } from '@vueuse/core'
-import { defineStore } from 'pinia'
 
 export const useLandingContentsStore = defineStore('landingContents', () => {
   const _contentMode = useStorage<'quotes' | 'jokes' | 'trivia'>('contentMode', 'quotes')

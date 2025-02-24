@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
     if (dbPassword) {
       const isValid = await compare(password, dbPassword)
       if (isValid) {
-        setCookie(event, 'admin', 'true', {
+        setCookie(event, 'isAdmin', 'true', {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           maxAge: 60 * 60 * 24 * 30

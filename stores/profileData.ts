@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 export const useProfileDataStore = defineStore('profileData', () => {
   const _profileData = ref<ProfileData>([])
   const profileData = computed(() => _profileData.value)

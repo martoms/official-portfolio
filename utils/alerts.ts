@@ -12,6 +12,9 @@ export const codeAlert = (code: string, data?: string) => {
     case 'UNAUTHORIZED':
       alert('Invalid Credentials')
       return
+    case 'LOGGED_OUT':
+      alert('Successfully Logged Out')
+      return
     default:
       alert('There seems to be an unexpected error. Please try again later.')
       return
