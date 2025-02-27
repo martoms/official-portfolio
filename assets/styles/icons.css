@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('/fonts/icomoon.eot?qfjpvq');
+  src: url('/fonts/icomoon.eot?puap3d');
   src:
-    url('/fonts/icomoon.eot?qfjpvq#iefix') format('embedded-opentype'),
-    url('/fonts/icomoon.ttf?qfjpvq') format('truetype'),
-    url('/fonts/icomoon.woff?qfjpvq') format('woff'),
-    url('/fonts/icomoon.svg?qfjpvq#icomoon') format('svg');
+    url('/fonts/icomoon.eot?puap3d#iefix') format('embedded-opentype'),
+    url('/fonts/icomoon.ttf?puap3d') format('truetype'),
+    url('/fonts/icomoon.woff?puap3d') format('woff'),
+    url('/fonts/icomoon.svg?puap3d#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,60 +27,66 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-edit:before {
-  content: '\e910';
+.icon-plus:before {
+  content: '\e914';
 }
-.icon-edit-solid:before {
-  content: '\e911';
-}
-.icon-save:before {
-  content: '\e912';
-}
-.icon-menu-burger:before {
-  content: '\e90f';
-}
-.icon-arrow-down:before {
-  content: '\e90b';
-}
-.icon-arrow-left:before {
-  content: '\e90c';
-}
-.icon-arrow-right:before {
-  content: '\e90d';
-}
-.icon-arrow-up:before {
-  content: '\e90e';
-}
-.icon-attachment:before {
-  content: '\e907';
-}
-.icon-upwork:before {
-  content: '\e908';
-}
-.icon-github:before {
-  content: '\e909';
-}
-.icon-linkedin:before {
-  content: '\e90a';
-}
-.icon-loading-1:before {
-  content: '\e906';
-}
-.icon-gear:before {
-  content: '\e905';
-}
-.icon-wrong-solid:before {
-  content: '\e903';
-}
-.icon-check-solid:before {
-  content: '\e904';
-}
-.icon-close:before {
-  content: '\e902';
-}
-.icon-left:before {
+.icon-add-circle-solid:before {
   content: '\e900';
 }
-.icon-right:before {
+.icon-left:before {
   content: '\e901';
+}
+.icon-right:before {
+  content: '\e902';
+}
+.icon-close:before {
+  content: '\e903';
+}
+.icon-wrong-solid:before {
+  content: '\e904';
+}
+.icon-check-solid:before {
+  content: '\e905';
+}
+.icon-gear:before {
+  content: '\e906';
+}
+.icon-loading-1:before {
+  content: '\e907';
+}
+.icon-attachment:before {
+  content: '\e908';
+}
+.icon-upwork:before {
+  content: '\e909';
+}
+.icon-github:before {
+  content: '\e90a';
+}
+.icon-linkedin:before {
+  content: '\e90b';
+}
+.icon-arrow-down:before {
+  content: '\e90c';
+}
+.icon-arrow-left:before {
+  content: '\e90d';
+}
+.icon-arrow-right:before {
+  content: '\e90e';
+}
+.icon-arrow-up:before {
+  content: '\e90f';
+}
+.icon-menu-burger:before {
+  content: '\e910';
+}
+.icon-edit:before {
+  content: '\e911';
+}
+.icon-edit-solid:before {
+  content: '\e912';
+}
+.icon-save:before {
+  content: '\e913';
 }

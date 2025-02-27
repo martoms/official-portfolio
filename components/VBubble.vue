@@ -14,19 +14,10 @@
 
 <script lang="ts" setup>
 import { isClient } from '@vueuse/core'
+import { set } from 'mongoose'
 
 const settings = useSettingsStore()
-const { isAdmin } = storeToRefs(settings)
-
-interface Props {
-  editData: boolean
-}
-
-const props = defineProps<Props>()
-
-const emits = defineEmits<{
-  (e: 'toggle:edit', val: boolean): void
-}>()
+const { isAdmin, editData } = storeToRefs(settings)
 
 const bubbleEl = ref()
 const showBubble = ref(false)
@@ -40,12 +31,12 @@ const { style } = useDraggable(bubbleEl, {
 })
 
 const primaryActionIcon = computed(() => {
-  return props.editData ? 'icon-edit-solid' : 'icon-edit'
+  return editData.value ? 'icon-edit-solid' : 'icon-edit'
 })
 
 const handleClick = () => {
-  if (props.editData) emits('toggle:edit', false)
-  else emits('toggle:edit', true)
+  if (editData.value) settings.setEditData(false)
+  else settings.setEditData(true)
 }
 
 onMounted(() => {

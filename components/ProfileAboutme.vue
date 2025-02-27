@@ -8,7 +8,9 @@
         src="https://res.cloudinary.com/dllsdiatn/image/upload/v1739274687/portfolio/profilepic_hxmnke.webp"
         alt="profile picture"
         class="relative h-full"
-      />
+      >
+      </VImage>
+      <VEditIcon />
     </div>
     <div class="relative top-[400px] h-[calc(100vh-400px)] overflow-y-auto">
       <div class="p-10 pt-0 h-full">
@@ -17,7 +19,7 @@
           {{ aboutMe?.name }}
         </VText>
         <!-- Current Position -->
-        <div>
+        <div class="relative">
           <VText class="text-primary font-semibold leading-5">
             {{ aboutMe?.currentPosition }} ·
             <VText tag="span" class="font-normal text-sm">
@@ -27,6 +29,7 @@
           <VText class="text-primary">
             {{ aboutMe?.currentCompany }}
           </VText>
+          <VEditIcon />
         </div>
         <!-- Links -->
         <div class="flex-y gap-3 py-8 text-primary">
@@ -40,14 +43,15 @@
           </VButton>
           <VButton class="flex-xy" @click="openLinkTo(aboutMe?.cv as string)">
             <VIcon name="icon-attachment" size="lg" />
-            <VText tag="span" class="text-sm underline hover:text-primary-foreground">
+            <VText tag="span" class="relative text-sm underline hover:text-primary-foreground">
               Download CV
+              <VEditIcon />
             </VText>
           </VButton>
         </div>
         <div
-          class="pl-2 max-h-[50%] border-solid border-l border-primary"
-          :class="!readMore ? 'h-[100px] overflow-hidden' : 'overflow-y-auto'"
+          class="relative pl-2 max-h-[50%] border-solid border-l border-primary"
+          :class="[!readMore ? 'h-[100px]' : 'overflow-y-auto', !editData && 'overflow-hidden']"
         >
           <VText
             v-for="(p, index) in intro"
@@ -63,6 +67,7 @@
             @click="readMore = true"
             >Read More</VButton
           >
+          <VEditIcon />
         </div>
       </div>
     </div>
@@ -73,6 +78,7 @@
 import { AboutMeSchema } from '@/schemas/profileData'
 import { commonUtils } from '@/utils/common'
 
+const { editData } = storeToRefs(useSettingsStore())
 const { profileData } = storeToRefs(useProfileDataStore())
 
 const { openLinkTo, getDuration } = commonUtils()

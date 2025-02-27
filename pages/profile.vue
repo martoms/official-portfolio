@@ -1,6 +1,6 @@
 <template>
   <main ref="profileEl" class="relative w-screen h-screen">
-    <VBubble :edit-data="editData" @toggle:edit="editData = $event" />
+    <VBubble />
     <ProfileAboutme />
     <ProfileSkills @assign="skillsSectionEl = $event" />
     <ProfileAwards @assign="awardsSectionEl = $event" />
@@ -31,7 +31,6 @@ const { profileData } = storeToRefs(profileDataStore)
 const profileEl = ref()
 const skillsSectionEl = ref()
 const awardsSectionEl = ref()
-const editData = ref(false)
 
 const { y: scrollY, isScrolling } = useScroll(window)
 const { height } = useElementBounding(profileEl)

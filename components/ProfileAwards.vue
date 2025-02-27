@@ -16,10 +16,12 @@
       </VText>
     </div>
     <div class="relative top-[300px] h-[calc(100vh-300px)] p-5 overflow-auto">
-      <div class="">
-        <div v-for="certificate in certificates" :key="certificate.title">
+      <div>
+        <div v-for="certificate in certificates" :key="certificate.title" class="relative">
           <ProfileAwardsCertificate :certificate="certificate" />
+          <VEditIcon />
         </div>
+        <VAddIcon />
       </div>
     </div>
   </section>

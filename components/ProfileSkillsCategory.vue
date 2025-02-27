@@ -6,7 +6,7 @@
     >
       {{ category }}
     </VText>
-    <div class="grid grid-cols-3 w-full gap-5">
+    <div class="relative grid grid-cols-3 w-full gap-5">
       <div
         v-for="skill in skills"
         :key="skill.name"
@@ -20,6 +20,8 @@
         />
         <VText class="text-sm text-primary font-thin">{{ skill.name }}</VText>
       </div>
+      <VAddIcon />
+      <VEditIcon />
     </div>
   </div>
 </template>
