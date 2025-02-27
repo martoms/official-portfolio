@@ -29,7 +29,7 @@
           <VText class="text-primary">
             {{ aboutMe?.currentCompany }}
           </VText>
-          <VEditIcon />
+          <VEditIcon @click="editCurrentposition = true" />
         </div>
         <!-- Links -->
         <div class="flex-y gap-3 py-8 text-primary">
@@ -71,6 +71,7 @@
         </div>
       </div>
     </div>
+    <EditCurrentposition v-if="editCurrentposition" @cancel="editCurrentposition = false" />
   </section>
 </template>
 
@@ -84,6 +85,7 @@ const { profileData } = storeToRefs(useProfileDataStore())
 const { openLinkTo, getDuration } = commonUtils()
 
 const readMore = ref(false)
+const editCurrentposition = ref(false)
 
 const links = [
   {
