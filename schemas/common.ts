@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+export const NonEmptyTextSchema = z
+  .string()
+  .min(1, 'Field must not be empty')
+  .brand<'NonEmptyText'>()
+
 export const APIResponseSchema = z.object({
   data: z.any(),
   code: z.string().brand<'APIResponseCode'>()

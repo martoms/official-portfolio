@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { NonEmptyTextSchema } from '@/schemas/common'
 
 export const AboutMeSchema = z.object({
   section: z.literal('aboutMe'),
@@ -36,6 +37,12 @@ export const CertificateSchema = z.object({
 export const AwardsSchema = z.object({
   section: z.literal('awards'),
   certificates: z.array(CertificateSchema)
+})
+
+export const CurrentPositionSchemaUpdateForm = z.object({
+  currentPosition: NonEmptyTextSchema.nullish(),
+  currentCompany: NonEmptyTextSchema.nullish(),
+  start: z.number().nullish()
 })
 
 export const ProfileDataSchema = z.array(z.union([AboutMeSchema, SkillsSchema, AwardsSchema]))

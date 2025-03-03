@@ -35,13 +35,26 @@
 <script lang="ts" setup>
 interface Props {
   id: string
-  type?: 'text' | 'number' | 'password'
+  type?: 'text' | 'number' | 'password' | 'date'
   label?: string
   style?: 2
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
-const model = defineModel<string | number>()
+const [model, modifiers] = defineModel<number | string>({
+  get(value) {
+    if (props.type === 'date' && modifiers.milliseconds && value !== undefined) {
+      return new Date(value).toISOString().split('T')[0]
+    }
+    return value
+  },
+  set(value) {
+    if (props.type === 'date' && modifiers.milliseconds) {
+      return typeof value === 'string' ? new Date(value).getTime() : value
+    }
+    return value
+  }
+})
 
 const containerEl = ref()
 const isActive = ref(false)

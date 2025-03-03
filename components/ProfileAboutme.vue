@@ -71,7 +71,11 @@
         </div>
       </div>
     </div>
-    <EditCurrentposition v-if="editCurrentposition" @cancel="editCurrentposition = false" />
+    <EditCurrentposition
+      v-if="editCurrentposition"
+      :about-me="aboutMe"
+      @close="editCurrentposition = false"
+    />
   </section>
 </template>
 
