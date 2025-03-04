@@ -1,19 +1,12 @@
 <template>
   <VForm @save="handleSubmit" @cancel="emits('close')">
-    <template #title>Self Introduction</template>
-    <VInput
-      id="intro"
-      label="Intro"
-      :style="2"
-      type="textarea"
-      v-model="form.intro"
-      class="h-[200px]"
-    />
+    <template #title>CV</template>
+    <VInput id="cv" label="CV" :style="2" v-model="form.cv" />
   </VForm>
 </template>
 
 <script lang="ts" setup>
-import { IntroPositionSchemaUpdateForm } from '@/schemas/profileData'
+import { CVSchemaUpdateForm } from '@/schemas/profileData'
 
 type Props = { aboutMe: AboutMe | undefined }
 const props = defineProps<Props>()
@@ -22,19 +15,19 @@ const emits = defineEmits(['close'])
 
 const profileDataStore = useProfileDataStore()
 
-const form = ref({ intro: props.aboutMe?.intro })
+const form = ref({ cv: props.aboutMe?.cv })
 
 const handleSubmit = async () => {
-  if (form.value.intro === props.aboutMe?.intro) return
+  if (form.value.cv === props.aboutMe?.cv) return
 
   try {
-    const payload = IntroPositionSchemaUpdateForm.parse(form.value)
+    const payload = CVSchemaUpdateForm.parse(form.value)
 
-    const { code } = await useValidateFetch('api/aboutme/intro', payload, {
+    const { code } = await useValidateFetch('api/aboutme/cv', payload, {
       method: 'PATCH'
     })
 
-    if (code === 'INTRO_UPDATED') {
+    if (code === 'CV_UPDATED') {
       profileDataStore.updateProfileData('aboutMe', payload as Partial<ProfileData>)
       emits('close')
     }

@@ -45,7 +45,7 @@
             <VIcon name="icon-attachment" size="lg" />
             <VText tag="span" class="relative text-sm underline hover:text-primary-foreground">
               Download CV
-              <VEditIcon />
+              <VEditIcon @click="editCV = true" />
             </VText>
           </VButton>
         </div>
@@ -77,6 +77,7 @@
       @close="editCurrentposition = false"
     />
     <EditAboutmeIntro v-if="editIntro" :about-me="aboutMe" @close="editIntro = false" />
+    <EditAboutmeCV v-if="editCV" :about-me="aboutMe" @close="editCV = false" />
   </section>
 </template>
 
@@ -92,6 +93,7 @@ const { openLinkTo, getDuration } = commonUtils()
 const readMore = ref(false)
 const editCurrentposition = ref(false)
 const editIntro = ref(false)
+const editCV = ref(false)
 
 const links = [
   {

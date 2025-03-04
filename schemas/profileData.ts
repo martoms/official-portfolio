@@ -8,7 +8,7 @@ export const AboutMeSchema = z.object({
   currentPosition: z.string(),
   start: z.number(),
   currentCompany: z.string(),
-  cv: z.string(),
+  cv: z.string().url(),
   intro: z.string()
 })
 
@@ -47,6 +47,10 @@ export const CurrentPositionSchemaUpdateForm = z.object({
 
 export const IntroPositionSchemaUpdateForm = z.object({
   intro: NonEmptyTextSchema.nullish()
+})
+
+export const CVSchemaUpdateForm = z.object({
+  cv: z.string().url().nullish()
 })
 
 export const ProfileDataSchema = z.array(z.union([AboutMeSchema, SkillsSchema, AwardsSchema]))
