@@ -45,4 +45,8 @@ export const CurrentPositionSchemaUpdateForm = z.object({
   start: z.number().nullish()
 })
 
+export const IntroPositionSchemaUpdateForm = z.object({
+  intro: NonEmptyTextSchema.nullish()
+})
+
 export const ProfileDataSchema = z.array(z.union([AboutMeSchema, SkillsSchema, AwardsSchema]))

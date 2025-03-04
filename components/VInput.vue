@@ -23,10 +23,17 @@
         {{ label }}
       </VText>
       <input
-        :id="id"
+        v-if="type !== 'textarea'"
+        :id
         :type="!type ? 'text' : type"
         v-model="model"
         class="h-full w-full p-2 bg-inherit rounded-md border-solid border border-secondary focus:border-primary outline-none outline-0 focus:outline-1 outline-primary"
+      />
+      <textarea
+        v-else
+        :id
+        v-model="model"
+        class="h-full w-full p-2 bg-inherit rounded-md border-solid border border-secondary focus:border-primary outline-none outline-0 focus:outline-1 outline-primary resize-none"
       />
     </template>
   </div>
@@ -35,7 +42,7 @@
 <script lang="ts" setup>
 interface Props {
   id: string
-  type?: 'text' | 'number' | 'password' | 'date'
+  type?: 'text' | 'number' | 'password' | 'date' | 'textarea'
   label?: string
   style?: 2
 }

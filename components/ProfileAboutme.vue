@@ -67,15 +67,16 @@
             @click="readMore = true"
             >Read More</VButton
           >
-          <VEditIcon />
+          <VEditIcon @click="editIntro = true" />
         </div>
       </div>
     </div>
-    <EditCurrentposition
+    <EditAboutmeCurrentposition
       v-if="editCurrentposition"
       :about-me="aboutMe"
       @close="editCurrentposition = false"
     />
+    <EditAboutmeIntro v-if="editIntro" :about-me="aboutMe" @close="editIntro = false" />
   </section>
 </template>
 
@@ -90,6 +91,7 @@ const { openLinkTo, getDuration } = commonUtils()
 
 const readMore = ref(false)
 const editCurrentposition = ref(false)
+const editIntro = ref(false)
 
 const links = [
   {
