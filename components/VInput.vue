@@ -42,11 +42,25 @@
       />
     </template>
     <template v-if="!style && type === 'file'">
-      <div class="flex-xy flex-col gap-2">
-        <div class="flex-xy h-10 w-10 bg-blue-light text-primary-foreground rounded-full">
+      <label :for="id" class="flex-xy flex-col gap-2 border-secondary-foreground p-5 text-primary">
+        <div
+          v-if="!fileInput && !imagePreview"
+          class="flex-xy h-10 w-10 bg-blue-light text-primary-foreground rounded-full"
+        >
           <VIcon name="icon-upload" size="2xl" />
         </div>
-      </div>
+        <VImage v-else :src="imagePreview || ''" class="max-h-[100px]" alt="preview" />
+
+        <VText tag="span">{{ fileInput ? 'Change Image' : 'Choose Image' }}</VText>
+      </label>
+      <input
+        ref="fileInputEl"
+        :id
+        type="file"
+        :accept="accept === 'image' ? 'image/*' : undefined"
+        @input="handleFileInput($event.target as HTMLInputElement)"
+        class="hidden h-full w-full p-2 bg-inherit border-secondary-foreground focus:border-primary outline-none outline-0 focus:outline-1 outline-primary"
+      />
     </template>
   </div>
 </template>
@@ -58,6 +72,7 @@ interface Props {
   label?: string
   style?: 2
   accept?: 'image'
+  imagePreview?: string
   hidden?: boolean
 }
 const props = defineProps<Props>()
@@ -81,8 +96,15 @@ const [model, modifiers] = defineModel<number | string>({
   }
 })
 
+const fileInputEl = ref()
 const containerEl = ref()
 const isActive = ref(false)
+const fileInput = ref()
+
+const handleFileInput = (el: HTMLInputElement) => {
+  fileInput.value = el.value
+  emits('input:file', el)
+}
 
 onClickOutside(containerEl, () => (isActive.value = false))
 </script>

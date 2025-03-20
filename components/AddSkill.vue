@@ -7,6 +7,7 @@
       label="Image"
       type="file"
       accept="image"
+      :image-preview="imagePreview"
       @input:file="handleFileInput($event)"
     />
   </VForm>
@@ -36,6 +37,7 @@ const form = ref<Form>({
   img: null,
   order: props.order
 })
+const imagePreview = ref()
 const isPending = ref(false)
 
 const category = computed(() => {
@@ -56,6 +58,7 @@ const category = computed(() => {
 const handleFileInput = (e: HTMLInputElement) => {
   if (!e.files?.[0]) return
   form.value.img = e.files?.[0]
+  imagePreview.value = URL.createObjectURL(form.value.img)
   formData.append('img', form.value.img)
 }
 
