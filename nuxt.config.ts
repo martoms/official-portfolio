@@ -25,6 +25,9 @@ export default defineNuxtConfig({
     quotesUri: process.env.QUOTES_URI,
     jokesUri: process.env.JOKES_URI,
     triviaUri: process.env.TRIVIA_URI,
+    cloudinaryApiKey: process.env.CLOUDINARY_API_KEY,
+    cloudinaryApiSecret: process.env.CLOUDINARY_API_SECRET,
+    cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
     public: {
       triviaUriRequestToken: process.env.TRIVIA_URI_REQUEST_TOKEN
     }

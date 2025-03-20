@@ -1,4 +1,4 @@
-import { colors } from './colors'
+import { colors } from '../themes/colors'
 import color from 'tailwindcss/colors'
 
 export const components = {

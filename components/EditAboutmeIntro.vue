@@ -1,5 +1,5 @@
 <template>
-  <VForm @save="handleSubmit" @cancel="emits('close')">
+  <VForm @save="handleSubmit" @cancel="emits('close')" :is-pending="isPending">
     <template #title>Self Introduction</template>
     <VInput
       id="intro"
@@ -23,11 +23,13 @@ const emits = defineEmits(['close'])
 const profileDataStore = useProfileDataStore()
 
 const form = ref({ intro: props.aboutMe?.intro })
+const isPending = ref(false)
 
 const handleSubmit = async () => {
   if (form.value.intro === props.aboutMe?.intro) return
 
   try {
+    isPending.value = true
     const payload = IntroPositionSchemaUpdateForm.parse(form.value)
 
     const { code } = await useValidateFetch('api/aboutme/intro', payload, {
@@ -40,6 +42,8 @@ const handleSubmit = async () => {
     }
   } catch (e) {
     e instanceof Error && console.log(e.message)
+  } finally {
+    isPending.value = false
   }
 }
 </script>

@@ -1,4 +1,4 @@
-import { url } from 'inspector'
+import type { MultiPartData } from 'h3'
 
 export const commonUtils = () => {
   const decodeText = (text: string) => {
@@ -35,5 +35,9 @@ export const commonUtils = () => {
     return Object.fromEntries(Object.entries(obj).filter(([_, value]) => value !== undefined)) as T
   }
 
-  return { decodeText, openLinkTo, getDuration, removeUndefined }
+  const toBase64 = (file: MultiPartData) => {
+    return `data:${file.type};base64,${file.data.toString('base64')}`
+  }
+
+  return { decodeText, openLinkTo, getDuration, removeUndefined, toBase64 }
 }

@@ -50,7 +50,7 @@
           </VButton>
         </div>
         <div
-          class="relative pl-2 max-h-[50%] border-solid border-l border-primary"
+          class="relative pl-2 max-h-[50%] border-primary-foreground-l"
           :class="[!readMore ? 'h-[100px]' : 'overflow-y-auto', !editData && 'overflow-hidden']"
         >
           <VText

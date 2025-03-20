@@ -10,9 +10,7 @@ import {
 
 export const useLandingContents = () => {
   const landingContents = useLandingContentsStore()
-  const { contentMode, attribution } = storeToRefs(landingContents)
-
-  const triviaList = ref<Array<Trivia>>([])
+  const { contentMode, attribution, triviaList } = storeToRefs(landingContents)
 
   const triviaUriRequestToken = useRuntimeConfig().public.triviaUriRequestToken
   const triviaToken = useStorage<string>('triviaToken', '')
@@ -34,13 +32,12 @@ export const useLandingContents = () => {
     { immediate: false }
   )
 
-  const { start: startNextTrivia } = useTimeoutFn(
-    () => {
-      landingContents.setContent(triviaList.value.pop() as Trivia)
-    },
-    1000,
-    { immediate: false }
-  )
+  const startNextTrivia = () => {
+    setTimeout(() => {
+      const nextTrivia = landingContents.getNextTrivia()
+      landingContents.setContent(nextTrivia as Trivia)
+    }, 1000)
+  }
 
   const getContent = () => {
     landingContents.setIsPending(true)
@@ -71,7 +68,7 @@ export const useLandingContents = () => {
       if (contentMode.value !== 'trivia') {
         landingContents.setContent(LandingContentSchema.parse(data))
       } else {
-        triviaList.value = TriviaListSchema.parse(data)
+        landingContents.assignTriviaList(TriviaListSchema.parse(data))
         lastTriviaFetched.value = Date.now()
         getTriviaFromList()
       }

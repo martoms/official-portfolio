@@ -1,7 +1,7 @@
 <template>
   <div
     v-if="editData"
-    class="absolute-center-xy flex-xy bg-slate-500/20 h-[calc(100%+10px)] w-[calc(100%+10px)] border-solid border border-primary rounded-md transition-smooth"
+    class="absolute-center-xy flex-xy bg-slate-500/20 h-[calc(100%+10px)] w-[calc(100%+10px)] border-primary-foreground transition-smooth"
     :class="getOpacity"
     @click.stop="emits('click')"
   >

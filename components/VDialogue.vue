@@ -15,10 +15,7 @@
         </VButton>
       </div>
       <!-- Content -->
-      <div
-        class="w-inherit border-solid border-y border-slate-200 min-h-[100px]"
-        :class="{ 'flex-xy': centered }"
-      >
+      <div class="w-inherit border-primary-y min-h-[100px]" :class="{ 'flex-xy': centered }">
         <slot />
       </div>
       <!-- Footer -->

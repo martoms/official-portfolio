@@ -1,5 +1,5 @@
 <template>
-  <VForm @save="handleSubmit" @cancel="emits('close')">
+  <VForm @save="handleSubmit" @cancel="emits('close')" :is-pending="isPending">
     <template #title>Current Position</template>
     <VInput id="title" label="Title" :style="2" v-model="form.newTitle" />
     <VInput id="company" label="Company" :style="2" v-model="form.newCompany" />
@@ -30,9 +30,11 @@ const form = ref({
   newCompany: props.aboutMe?.currentCompany,
   newStartDate: props.aboutMe?.start
 })
+const isPending = ref(false)
 
 const handleSubmit = async () => {
   try {
+    isPending.value = true
     const newValues = {
       currentPosition:
         form.value.newTitle !== props.aboutMe?.currentPosition ? form.value.newTitle : undefined,
@@ -56,6 +58,8 @@ const handleSubmit = async () => {
     }
   } catch (e) {
     e instanceof Error && console.log(e.message)
+  } finally {
+    isPending.value = false
   }
 }
 </script>

@@ -4,10 +4,12 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
   const _contentMode = useStorage<'quotes' | 'jokes' | 'trivia'>('contentMode', 'quotes')
   const _content = ref<LandingContent | Trivia | null>(null)
   const _isPending = ref(false)
+  const _triviaList = ref<Array<Trivia>>([])
 
   const contentMode = computed(() => _contentMode.value)
   const content = computed(() => _content.value)
   const isPending = computed(() => _isPending.value)
+  const triviaList = computed(() => _triviaList.value)
 
   const attribution = computed(() => {
     switch (_contentMode.value) {
@@ -32,6 +34,15 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     }
   })
 
+  const getNextTrivia = () => {
+    const trivia = _triviaList.value.pop()
+    return trivia
+  }
+
+  const assignTriviaList = (trivias: Trivia[]) => {
+    _triviaList.value = trivias
+  }
+
   const setContent = (newContent: LandingContent | Trivia | null) => {
     _content.value = newContent
   }
@@ -47,8 +58,11 @@ export const useLandingContentsStore = defineStore('landingContents', () => {
     attribution,
     content,
     isPending,
+    triviaList,
     setContent,
     setContentMode,
-    setIsPending
+    setIsPending,
+    assignTriviaList,
+    getNextTrivia
   }
 })

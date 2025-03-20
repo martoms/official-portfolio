@@ -1,4 +1,6 @@
-import { colors } from './colors'
+import { colors } from '../themes/colors'
+import color from 'tailwindcss/colors'
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 export const utilities = {
   // display
@@ -38,6 +40,38 @@ export const utilities = {
   '.mask-gradient-y': {
     '-webkit-maskImage': 'linear-gradient(black 60%, transparent)',
     maskImage: 'linear-gradient(black 60%, transparent)'
+  },
+  // border
+  '.border-primary': {
+    border: `1px solid ${color.slate[200]}`,
+    borderRadius: defaultTheme.borderRadius.md
+  },
+  '.border-primary-y': {
+    borderStyle: 'solid',
+    borderWidth: '1px 0 1px 0',
+    borderColor: color.slate[200]
+  },
+  '.border-secondary': {
+    border: `1px solid ${colors.blue.dark}`,
+    borderRadius: defaultTheme.borderRadius.md
+  },
+  '.border-primary-foreground': {
+    border: `1px solid ${colors.primary.DEFAULT}`,
+    borderRadius: defaultTheme.borderRadius.md
+  },
+  '.border-primary-foreground-b': {
+    borderStyle: 'solid',
+    borderWidth: '0 0 1px 0',
+    borderColor: colors.primary.DEFAULT
+  },
+  '.border-primary-foreground-l': {
+    borderStyle: 'solid',
+    borderWidth: '0 0 0 1px',
+    borderColor: colors.primary.DEFAULT
+  },
+  '.border-secondary-foreground': {
+    border: `1px solid ${colors.secondary.DEFAULT}`,
+    borderRadius: defaultTheme.borderRadius.md
   },
   // transition
   '.transition-smooth': {

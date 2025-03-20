@@ -18,10 +18,7 @@
       Next
     </VButton>
 
-    <div
-      v-if="enableScoring"
-      class="mb-5 p-3 text-primary border-solid border border-slate-200 rounded-md"
-    >
+    <div v-if="enableScoring" class="mb-5 p-3 text-primary border-primary">
       <div class="flex-y justify-between">
         <VText class="text-xs uppercase">Answers</VText>
         <VText class="text-xs uppercase">Points</VText>
@@ -81,7 +78,7 @@
         v-for="option in options"
         :key="option"
         btn-style="rounded"
-        class="w-full h-auto text-primary-background border-solid border-8 border-transparent rounded-md"
+        class="w-full h-auto text-primary-background border-solid !border-8 border-transparent rounded-md"
         :class="getAnswerStyle(option)"
         @click="handleAnswer(option)"
         :disabled="hasAnswered"
@@ -104,7 +101,7 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const { getContent } = useLandingContentsStore()
+const { getContent } = useLandingContents()
 
 const showOptions = ref(false)
 const hasAnswered = ref(false)
@@ -153,7 +150,7 @@ const getAnswerStyle = (option: string) => {
   if (hasAnswered.value) {
     if (option === answer.value && answer.value === correctAnswer) return '!bg-primary'
     else if (option === answer.value && answer.value !== correctAnswer) return '!bg-danger'
-    else if (option !== answer.value && option === correctAnswer) return '!border-primary'
+    else if (option !== answer.value && option === correctAnswer) return '!border-sky-500'
     else return ''
   }
   return ''

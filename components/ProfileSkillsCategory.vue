@@ -2,7 +2,7 @@
   <div class="relative flex-xy gap-5 flex-col p-10 w-full">
     <VText
       tag="h3"
-      class="w-full text-center text-lg text-primary pb-3 font-thin border-solid border-b border-primary"
+      class="w-full text-center text-lg text-primary pb-3 font-thin border-primary-foreground-b"
     >
       {{ category }}
     </VText>
@@ -20,8 +20,10 @@
         />
         <VText class="text-sm text-primary font-thin">{{ skill.name }}</VText>
       </div>
-      <VAddIcon />
+      <VAddIcon @click="addSkill = true" />
       <VEditIcon />
+
+      <AddSkill v-if="addSkill" :category :order="nextOrder" @close="addSkill = false" />
     </div>
   </div>
 </template>
@@ -31,5 +33,10 @@ interface Props {
   skills: Array<Skill>
   category: string
 }
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const addSkill = ref(false)
+const nextOrder = computed(() => {
+  return Math.max(...props.skills.map((skill) => skill.order)) + 1
+})
 </script>

@@ -1,13 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 import plugin from 'tailwindcss/plugin'
-import { components } from './assets/styles/components'
-import { colors } from './assets/styles/colors'
-import { textColor } from './assets/styles/textColor'
-import { fontSize } from './assets/styles/fontSize'
-import { keyframes } from './assets/styles/keyframes'
-import { animation } from './assets/styles/animation'
+import { colors } from './assets/styles/themes/colors'
+import { textColor } from './assets/styles/themes/textColor'
+import { fontSize } from './assets/styles/themes/fontSize'
+import { keyframes } from './assets/styles/themes/keyframes'
+import { animation } from './assets/styles/themes/animation'
 
-import { utilities } from './assets/styles/utilities'
+import { components } from './assets/styles/plugins/components'
+import { utilities } from './assets/styles/plugins/utilities'
 
 export default {
   content: [

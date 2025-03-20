@@ -9,7 +9,7 @@
 
         <VButton
           v-if="enableScoring"
-          class="p-1 text-sm hover:bg-slate-100 border-solid border border-slate-200 rounded-md"
+          class="p-1 text-sm hover:bg-slate-100 border-primary"
           @click="resetScore++"
         >
           Reset Score

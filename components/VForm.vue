@@ -16,9 +16,17 @@
           <VButton
             btn-style="full"
             class="bg-primary hover:bg-primary-hover text-primary-background"
+            :disabled="isPending"
             @submit.prevent="emits('save')"
-            >Save</VButton
           >
+            {{ !isPending ? submitText : '' }}
+            <VImage
+              v-if="isPending"
+              src="/images/loading-circle.svg"
+              alt="loading"
+              class="animate-spin h-5 w-5 invert"
+            />
+          </VButton>
         </div>
       </form>
     </div>
@@ -26,9 +34,19 @@
 </template>
 
 <script lang="ts" setup>
+interface Props {
+  action?: 'add'
+  isPending: boolean
+}
+const props = defineProps<Props>()
+
 const emits = defineEmits(['save', 'cancel'])
 
 const containerEl = ref()
+
+const submitText = computed(() => {
+  return props.action === 'add' ? 'Add' : 'Save'
+})
 
 onClickOutside(containerEl, () => emits('cancel'))
 </script>

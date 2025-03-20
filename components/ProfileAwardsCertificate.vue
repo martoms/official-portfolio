@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full p-5 my-5 border-solid border border-blue-500 rounded-md">
+  <div class="w-full p-5 my-5 border-secondary">
     <VText tag="h3" class="text-primary-foreground font-semibold">{{ certificate.title }}</VText>
     <VText class="text-primary text-sm">{{ certificate.description }}</VText>
     <div class="relative w-full rounded-md overflow-hidden">

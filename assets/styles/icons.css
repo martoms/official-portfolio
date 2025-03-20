@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'icomoon';
-  src: url('/fonts/icomoon.eot?puap3d');
+  src: url('/fonts/icomoon.eot?gwavdz');
   src:
-    url('/fonts/icomoon.eot?puap3d#iefix') format('embedded-opentype'),
-    url('/fonts/icomoon.ttf?puap3d') format('truetype'),
-    url('/fonts/icomoon.woff?puap3d') format('woff'),
-    url('/fonts/icomoon.svg?puap3d#icomoon') format('svg');
+    url('/fonts/icomoon.eot?gwavdz#iefix') format('embedded-opentype'),
+    url('/fonts/icomoon.ttf?gwavdz') format('truetype'),
+    url('/fonts/icomoon.woff?gwavdz') format('woff'),
+    url('/fonts/icomoon.svg?gwavdz#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,66 +27,69 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-plus:before {
-  content: '\e914';
-}
-.icon-add-circle-solid:before {
+.icon-upload:before {
   content: '\e900';
 }
-.icon-left:before {
+.icon-add-circle-solid:before {
   content: '\e901';
 }
-.icon-right:before {
+.icon-left:before {
   content: '\e902';
 }
-.icon-close:before {
+.icon-right:before {
   content: '\e903';
 }
-.icon-wrong-solid:before {
+.icon-close:before {
   content: '\e904';
 }
-.icon-check-solid:before {
+.icon-wrong-solid:before {
   content: '\e905';
 }
-.icon-gear:before {
+.icon-check-solid:before {
   content: '\e906';
 }
-.icon-loading-1:before {
+.icon-gear:before {
   content: '\e907';
 }
-.icon-attachment:before {
+.icon-loading-1:before {
   content: '\e908';
 }
-.icon-upwork:before {
+.icon-attachment:before {
   content: '\e909';
 }
-.icon-github:before {
+.icon-upwork:before {
   content: '\e90a';
 }
-.icon-linkedin:before {
+.icon-github:before {
   content: '\e90b';
 }
-.icon-arrow-down:before {
+.icon-linkedin:before {
   content: '\e90c';
 }
-.icon-arrow-left:before {
+.icon-arrow-down:before {
   content: '\e90d';
 }
-.icon-arrow-right:before {
+.icon-arrow-left:before {
   content: '\e90e';
 }
-.icon-arrow-up:before {
+.icon-arrow-right:before {
   content: '\e90f';
 }
-.icon-menu-burger:before {
+.icon-arrow-up:before {
   content: '\e910';
 }
-.icon-edit:before {
+.icon-menu-burger:before {
   content: '\e911';
 }
-.icon-edit-solid:before {
+.icon-edit:before {
   content: '\e912';
 }
-.icon-save:before {
+.icon-edit-solid:before {
   content: '\e913';
+}
+.icon-save:before {
+  content: '\e914';
+}
+.icon-plus:before {
+  content: '\e915';
 }

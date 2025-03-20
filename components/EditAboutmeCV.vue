@@ -1,5 +1,5 @@
 <template>
-  <VForm @save="handleSubmit" @cancel="emits('close')">
+  <VForm @save="handleSubmit" @cancel="emits('close')" :is-pending="isPending">
     <template #title>CV</template>
     <VInput id="cv" label="CV" :style="2" v-model="form.cv" />
   </VForm>
@@ -16,11 +16,13 @@ const emits = defineEmits(['close'])
 const profileDataStore = useProfileDataStore()
 
 const form = ref({ cv: props.aboutMe?.cv })
+const isPending = ref(false)
 
 const handleSubmit = async () => {
   if (form.value.cv === props.aboutMe?.cv) return
 
   try {
+    isPending.value = true
     const payload = CVSchemaUpdateForm.parse(form.value)
 
     const { code } = await useValidateFetch('api/aboutme/cv', payload, {
@@ -33,6 +35,8 @@ const handleSubmit = async () => {
     }
   } catch (e) {
     e instanceof Error && console.log(e.message)
+  } finally {
+    isPending.value = false
   }
 }
 </script>
