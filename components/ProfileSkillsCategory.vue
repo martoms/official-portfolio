@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 interface Props {
   skills: Array<Skill>
-  category: SkillCategory
+  category: string
 }
 const props = defineProps<Props>()
 

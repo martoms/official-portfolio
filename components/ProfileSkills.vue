@@ -42,19 +42,19 @@ const othersSkills = computed(() => getSkills('others'))
 const skillSet = computed(() => {
   return [
     {
-      name: 'Backend',
+      name: 'Backend' as const,
       skills: backendSkills.value
     },
     {
-      name: 'Frontend',
+      name: 'Frontend' as const,
       skills: frontendSkills.value
     },
     {
-      name: 'Others',
+      name: 'Others' as const,
       skills: othersSkills.value
     },
     {
-      name: 'Graphic Design',
+      name: 'Graphic Design' as const,
       skills: graphicDesignSkills.value
     }
   ]
