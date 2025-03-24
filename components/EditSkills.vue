@@ -2,7 +2,9 @@
   <VModal centered>
     <div ref="containerEl" class="modal-container">
       <VText class="form-title"> Skills </VText>
-      <div class="border-primary overflow-y-hidden"></div>
+      <div class="flex flex-col gap-10 border-primary p-5 h-[500px] overflow-y-auto">
+        <EditSkillsForm v-for="skill in skills" :key="skill.name" :skill="skill" />
+      </div>
     </div>
   </VModal>
 </template>
