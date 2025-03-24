@@ -24,7 +24,7 @@
       <VEditIcon v-if="skills.length" @click="editSkills = true" />
 
       <AddSkill v-if="addSkill" :category :order="nextOrder" @close="addSkill = false" />
-      <EditSkills v-if="editSkills" :skills @close="editSkills = false" />
+      <EditSkills v-if="editSkills" :skills :category @close="editSkills = false" />
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 interface Props {
   skills: Array<Skill>
-  category: string
+  category: SkillCategory
 }
 const props = defineProps<Props>()
 

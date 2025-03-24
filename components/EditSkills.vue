@@ -1,8 +1,10 @@
 <template>
   <VModal centered>
     <div ref="containerEl" class="modal-container">
-      <VText class="form-title"> Skills </VText>
-      <div class="border-primary overflow-y-hidden"></div>
+      <VText class="form-title"> Skills ({{ category }})</VText>
+      <div class="flex flex-col gap-10 border-primary p-5 h-[500px] overflow-y-auto">
+        <EditSkillsForm v-for="skill in skills" :key="skill.name" :skill="skill" />
+      </div>
     </div>
   </VModal>
 </template>
@@ -10,6 +12,7 @@
 <script lang="ts" setup>
 interface Props {
   skills: Skill[]
+  category: SkillCategory
 }
 defineProps<Props>()
 

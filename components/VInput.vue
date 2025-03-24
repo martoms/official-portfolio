@@ -49,9 +49,14 @@
         >
           <VIcon name="icon-upload" size="2xl" />
         </div>
-        <VImage v-else :src="imagePreview || ''" class="max-h-[100px]" alt="preview" />
+        <VImage
+          v-else-if="imagePreview"
+          :src="imagePreview"
+          class="h-[100px] max-h-[100px]"
+          alt="preview"
+        />
 
-        <VText tag="span">{{ fileInput ? 'Change Image' : 'Choose Image' }}</VText>
+        <VText tag="span">{{ fileInput || imagePreview ? 'Change Image' : 'Choose Image' }}</VText>
       </label>
       <input
         ref="fileInputEl"
