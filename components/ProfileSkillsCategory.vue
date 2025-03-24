@@ -21,9 +21,10 @@
         <VText class="text-sm text-primary font-thin">{{ skill.name }}</VText>
       </div>
       <VAddIcon @click="addSkill = true" />
-      <VEditIcon />
+      <VEditIcon v-if="skills.length" @click="editSkills = true" />
 
       <AddSkill v-if="addSkill" :category :order="nextOrder" @close="addSkill = false" />
+      <EditSkills v-if="editSkills" :skills @close="editSkills = false" />
     </div>
   </div>
 </template>
@@ -36,6 +37,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const addSkill = ref(false)
+const editSkills = ref(false)
+
 const nextOrder = computed(() => {
   return Math.max(...props.skills.map((skill) => skill.order)) + 1
 })

@@ -1,7 +1,7 @@
 <template>
   <VModal centered>
-    <div ref="containerEl" class="bg-primary-background p-5 rounded-md shadow-md">
-      <VText class="text-primary-foreground font-semibold text-lg text-center mb-5">
+    <div ref="containerEl" class="modal-container">
+      <VText class="form-title">
         <slot name="title" />
       </VText>
       <form class="bg-inherit flex flex-col gap-4" @submit.prevent="emits('save')">

@@ -1,5 +1,8 @@
+import defaultTheme from 'tailwindcss/defaultTheme'
 import { colors } from '../themes/colors'
+import { fontSize } from '../themes/fontSize'
 import color from 'tailwindcss/colors'
+import { pad } from 'lodash-es'
 
 export const components = {
   '.landing': {
@@ -32,5 +35,19 @@ export const components = {
     height: '100%',
     background: `linear-gradient(90deg, ${color.neutral[300]} 25%, ${color.neutral[100]} 50%, ${color.neutral[300]} 75%)`,
     backgroundSize: '200% 100%'
+  },
+  '.modal-container': {
+    backgroundColor: colors.primary.background,
+    padding: pad(defaultTheme.spacing[5]),
+    borderRadius: defaultTheme.borderRadius.md,
+    boxShadow: defaultTheme.boxShadow.md
+  },
+  '.form-title': {
+    color: colors.primary.DEFAULT,
+    fontWeight: defaultTheme.fontWeight.semibold,
+    fontSize: fontSize.lg[0],
+    lineHeight: fontSize.lg[1],
+    textAlign: 'center',
+    marginBottom: defaultTheme.spacing[5]
   }
 }
