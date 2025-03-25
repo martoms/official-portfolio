@@ -4,7 +4,7 @@ export const useValidateFetch = async (
   url: string,
   body?: any,
   options?: {
-    method: 'GET' | 'POST' | 'PATCH' | 'PUT'
+    method: 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
     headerOption?: Record<string, string>
   }
 ) => {

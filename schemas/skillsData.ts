@@ -7,3 +7,9 @@ export const CloudinaryImageSchema = z
     secure_url: z.string().url()
   })
   .transform((data) => ({ url: data.secure_url }))
+
+export const SkillsDeleteSchema = z.object({
+  category: SkillCategorySchema,
+  name: z.string(),
+  img: z.string().url()
+})

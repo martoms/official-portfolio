@@ -32,7 +32,15 @@ const btnStyle = computed(() => {
       return ['w-full', 'p-3', 'flex-xy', 'rounded-md']
     case 'rounded': {
       const bgColor = props.viariant ? `bg-${props.viariant}` : 'bg-slate-500'
-      return [getSize.value, 'flex', 'items-center', 'justify-center', 'rounded-md', bgColor]
+      return [
+        getSize.value,
+        'flex',
+        'items-center',
+        'justify-center',
+        'rounded-md',
+        bgColor,
+        'px-7'
+      ]
     }
     default:
       return ''

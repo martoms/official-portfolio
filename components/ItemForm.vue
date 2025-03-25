@@ -5,7 +5,19 @@
         :name="`icon-trash${trashIsHovered ? '-solid' : ''}`"
         size="xl"
         class="absolute z-10 top-0 right-0 text-primary hover:text-primary-foreground"
+        @click="showDeleteConfirmation = true"
       />
+      <DeleteConfirmation
+        v-if="showDeleteConfirmation"
+        @close="showDeleteConfirmation = false"
+        @confirm="emits('confirm:delete')"
+      >
+        <VText class="text-primary text-center">
+          Are you sure you want to delete
+          <VText tag="span" class="font-semibold">{{ name }}</VText>
+          ?
+        </VText>
+      </DeleteConfirmation>
     </div>
     <form class="bg-inherit flex flex-col gap-4" @submit.prevent="emits('save')">
       <slot />
@@ -39,14 +51,16 @@
 interface Props {
   action?: 'add'
   isPending: boolean
+  name: string
 }
 const props = defineProps<Props>()
 
-const emits = defineEmits(['save', 'cancel'])
+const emits = defineEmits(['save', 'cancel', 'confirm:delete'])
 
 const containerEl = ref()
 const trashIsHovered = ref(false)
 const isActive = ref(false)
+const showDeleteConfirmation = ref(false)
 
 const submitText = computed(() => {
   return props.action === 'add' ? 'Add' : 'Save'

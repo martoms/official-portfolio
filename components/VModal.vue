@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport :to="teleport || 'body'">
     <div
       class="fixed h-screen w-screen top-0 left-0 p-2 md:p-10 bg-neutral-950/30 backdrop-blur-[1px] z-50 animate-fade-in"
       :class="centered && 'flex-xy'"
@@ -14,6 +14,7 @@
 <script lang="ts" setup>
 interface Props {
   centered?: boolean
+  teleport?: string
 }
 defineProps<Props>()
 </script>
