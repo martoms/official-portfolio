@@ -22,17 +22,19 @@
 <script lang="ts" setup>
 import { SkillsDeleteSchema } from '@/schemas/skillsData'
 
+interface Form {
+  name: string
+  img: File | null
+  order: number
+}
+
 interface Props {
   skill: Skill
   category: string
 }
 const props = defineProps<Props>()
 
-interface Form {
-  name: string
-  img: File | null
-  order: number
-}
+const profileData = useProfileDataStore()
 
 const formData = new FormData()
 const form = ref<Form>({
@@ -80,10 +82,12 @@ const handleDelete = async () => {
       name: props.skill.name,
       img: props.skill.img
     })
-    const { code, data } = await useValidateFetch('api/skills', payload, {
+    const { code } = await useValidateFetch('api/skills', payload, {
       method: 'DELETE'
     })
-    console.log('code', code, 'data', data)
+    if (code === 'SKILL_DELETED') {
+      profileData.updateSkillData(categoryEnumValue.value, props.skill, 'remove')
+    }
   } catch (e) {
     e instanceof Error && console.log(e.message)
   } finally {

@@ -4,7 +4,13 @@
     :class="[btnStyle, getHoverStyle, disabled ? 'opacity-50' : '']"
     :disabled="disabled"
   >
-    <slot />
+    <slot v-if="!isPending" />
+    <VImage
+      v-else
+      src="/images/loading-circle.svg"
+      alt="loading"
+      class="animate-spin h-5 w-5 invert"
+    />
   </button>
 </template>
 <script lang="ts" setup>
@@ -16,12 +22,13 @@ interface Props {
   disabled?: boolean
   viariant?: 'success' | 'warning' | 'error'
   size?: 'sm'
+  isPending?: boolean
 }
 
 const props = defineProps<Props>()
 
 const getSize = computed(() => {
-  if (!props.size) return 'p-3 px-4'
+  if (!props.size) return 'p-3 px-4 min-w-[120px]'
   else if (props.size === 'sm') return 'p-1 px-2 text-sm'
   else return ''
 })

@@ -6,14 +6,19 @@ export const useProfileDataStore = defineStore('profileData', () => {
 
   const setProfileData = (data: ProfileData) => (_profileData.value = data)
 
-  const addSkill = (category: SkillCategory, skill: Skill) => {
+  const updateSkillData = (category: SkillCategory, skill: Skill, action: 'add' | 'remove') => {
     const skillsDataIndex = _profileData.value.findIndex((d) => d.section === 'skills')
-    if (skillsDataIndex !== -1) {
-      const parsedSkillsData = SkillsSchema.safeParse(_profileData.value[skillsDataIndex])
-      if (parsedSkillsData.success) {
+    const parsedSkillsData = SkillsSchema.safeParse(_profileData.value[skillsDataIndex])
+
+    if (skillsDataIndex !== -1 && parsedSkillsData.success) {
+      if (action === 'add') {
         parsedSkillsData.data[category].push(skill)
-        _profileData.value.splice(skillsDataIndex, 1, parsedSkillsData.data)
+      } else if (action === 'remove') {
+        parsedSkillsData.data[category] = parsedSkillsData.data[category].filter(
+          (s) => s.name !== skill.name
+        )
       }
+      _profileData.value.splice(skillsDataIndex, 1, parsedSkillsData.data)
     }
   }
 
@@ -28,6 +33,6 @@ export const useProfileDataStore = defineStore('profileData', () => {
     profileData,
     setProfileData,
     updateProfileData,
-    addSkill
+    updateSkillData
   }
 })

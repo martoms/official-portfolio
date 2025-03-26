@@ -9,6 +9,7 @@
       />
       <DeleteConfirmation
         v-if="showDeleteConfirmation"
+        :isPending
         @close="showDeleteConfirmation = false"
         @confirm="emits('confirm:delete')"
       >
@@ -32,15 +33,10 @@
           btn-style="full"
           class="bg-primary hover:bg-primary-hover text-primary-background"
           :disabled="isPending"
+          :isPending
           @submit.prevent="emits('save')"
         >
-          {{ !isPending ? submitText : '' }}
-          <VImage
-            v-if="isPending"
-            src="/images/loading-circle.svg"
-            alt="loading"
-            class="animate-spin h-5 w-5 invert"
-          />
+          {{ submitText }}
         </VButton>
       </div>
     </form>

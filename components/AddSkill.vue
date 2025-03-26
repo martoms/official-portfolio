@@ -75,7 +75,7 @@ const handleSubmit = async () => {
 
     if (code === 'SKILL_ADDED') {
       const skill = SkillSchema.parse(data)
-      profileData.addSkill(category.value, skill)
+      profileData.updateSkillData(category.value, skill, 'add')
       emits('close')
     }
   } catch (e) {

@@ -9,6 +9,7 @@
         <VButton
           btn-style="rounded"
           class="mt-5 !bg-primary hover:!bg-primary-hover"
+          :isPending
           @click="emits('confirm')"
           >Confirm</VButton
         >
@@ -18,6 +19,11 @@
 </template>
 
 <script lang="ts" setup>
+type Props = {
+  isPending: boolean
+}
+defineProps<Props>()
+
 const emits = defineEmits(['close', 'confirm'])
 
 const containerEl = ref()
